@@ -1,0 +1,62 @@
+"use client";
+
+import { useEffect } from "react";
+
+type Props = {
+  open: boolean;
+  onClose: () => void;
+  onDownload: () => void;
+};
+
+export default function ResultModal({ open, onClose, onDownload }: Props) {
+  // Здесь можно инициализировать рекламу (если сеть требует JS-инициализацию)
+  useEffect(() => {
+    if (!open) return;
+    // Например: window.someAdNetworkInit?.()
+  }, [open]);
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
+      <div className="w-full max-w-lg bg-white rounded shadow">
+        <div className="p-4 border-b flex items-center justify-between">
+          <div className="font-semibold">Конвертация завершена</div>
+          <button className="text-sm underline" onClick={onClose}>
+            Закрыть
+          </button>
+        </div>
+
+        <div className="p-4 flex flex-col gap-4">
+          <div className="border rounded p-3 bg-neutral-50">
+            <div className="text-sm font-medium">Баннер после конвертации</div>
+            <div className="text-xs text-neutral-600 mt-1">
+              Сюда вставляется interstitial/native/iframe от рекламной сети.
+            </div>
+
+            {/* ВСТАВИТЬ КОД РЕКЛАМЫ */}
+            <div
+              id="ad-modal-slot"
+              className="mt-3 min-h-[120px] flex items-center justify-center border rounded bg-white text-xs text-neutral-500"
+            >
+              ad-slot
+            </div>
+          </div>
+
+          <button
+            onClick={onDownload}
+            className="rounded bg-black text-white px-4 py-2 text-sm"
+          >
+            Скачать файл
+          </button>
+
+          <p className="text-xs text-neutral-600">
+            Подсказка: многие браузеры блокируют автопопапы. Поэтому лучше
+            показывать рекламу внутри модалки или открывать рекламную вкладку по
+            клику на “Скачать”.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
