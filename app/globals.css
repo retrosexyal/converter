@@ -36,3 +36,20 @@ select {
     color: #ffffff;
   }
 }
+
+html, body {
+  overflow-x: hidden;
+}
+
+[data-zone] {
+  min-height: 0 !important;
+}
+
+.ad-fade {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ad-fade.loaded {
+  opacity: 1;
+}
