@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
+import PropellerInPagePush from "@/components/PropellerInPagePush";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL || "https://example.com"),
@@ -79,6 +80,7 @@ export default function RootLayout({
             </div>
           </footer>
         </div>
+        <PropellerInPagePush />
       </body>
     </html>
   );
