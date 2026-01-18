@@ -31,7 +31,14 @@ export default function Page() {
       <h2>Контакты</h2>
       <p>
         По всем вопросам вы можете связаться с нами через телеграм
-        https://t.me/rocklobstar.
+        <br />
+        <a
+          href="https://t.me/rocklobstar"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Telegram: @Rocklobstar
+        </a>
       </p>
     </article>
   );

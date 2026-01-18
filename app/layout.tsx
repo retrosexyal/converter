@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     "Онлайн конвертер изображений: WebP ↔ PNG ↔ JPEG. Быстро, безопасно, бесплатно. Скачивание сразу после конвертации.",
   applicationName: "Image Converter",
   alternates: { canonical: "/" },
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "Конвертер изображений онлайн — WebP, PNG, JPEG",
     description: "Конвертируй WebP/PNG/JPEG в нужный формат. Быстро и удобно.",
