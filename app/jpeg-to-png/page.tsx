@@ -4,10 +4,10 @@ import FaqSchema from "@/components/FaqSchema";
 import { BASE_FAQ } from "@/lib/faq";
 
 export const metadata: Metadata = {
-  title: "JPEG в WebP онлайн",
+  title: "JPEG в PNG онлайн",
   description:
-    "Конвертер JPEG в WebP онлайн. Уменьшите размер изображения без заметной потери качества.",
-  alternates: { canonical: "/jpeg-to-webp" },
+    "Конвертер JPEG в PNG онлайн. Получите PNG с поддержкой прозрачности.",
+  alternates: { canonical: "/jpeg-to-png" },
 };
 
 export default function Page() {
@@ -16,13 +16,13 @@ export default function Page() {
       <FaqSchema faqs={BASE_FAQ} />
 
       <div className="flex flex-col gap-10">
-        <UploadForm title="JPEG → WebP" defaultFormat="webp" hideFormatSelect />
+        <UploadForm title="JPEG → PNG" defaultFormat="png" hideFormatSelect />
 
         <article className="prose max-w-none">
-          <h1>JPEG в WebP онлайн</h1>
+          <h1>JPEG в PNG онлайн</h1>
           <p>
-            WebP позволяет существенно уменьшить размер JPEG-файлов, что
-            ускоряет загрузку сайтов и экономит трафик.
+            PNG поддерживает прозрачность и не использует сжатие с потерями.
+            Подходит для логотипов и графики.
           </p>
           <ul>
             {BASE_FAQ.map((f) => (

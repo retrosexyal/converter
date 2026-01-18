@@ -39,7 +39,8 @@ select {
 
 html,
 body {
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 [data-zone] {
@@ -53,4 +54,12 @@ body {
 
 .ad-fade.loaded {
   opacity: 1;
+}
+
+:root {
+  --ad-safe-bottom: 0px;
+}
+
+body {
+  padding-bottom: var(--ad-safe-bottom);
 }

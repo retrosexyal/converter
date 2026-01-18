@@ -4,10 +4,10 @@ import FaqSchema from "@/components/FaqSchema";
 import { BASE_FAQ } from "@/lib/faq";
 
 export const metadata: Metadata = {
-  title: "JPEG в WebP онлайн",
+  title: "WebP в JPEG онлайн",
   description:
-    "Конвертер JPEG в WebP онлайн. Уменьшите размер изображения без заметной потери качества.",
-  alternates: { canonical: "/jpeg-to-webp" },
+    "Конвертер WebP в JPEG онлайн. Быстрое преобразование изображений в формат JPG.",
+  alternates: { canonical: "/webp-to-jpeg" },
 };
 
 export default function Page() {
@@ -16,13 +16,14 @@ export default function Page() {
       <FaqSchema faqs={BASE_FAQ} />
 
       <div className="flex flex-col gap-10">
-        <UploadForm title="JPEG → WebP" defaultFormat="webp" hideFormatSelect />
+        <UploadForm title="WebP → JPEG" defaultFormat="jpeg" hideFormatSelect />
 
         <article className="prose max-w-none">
-          <h1>JPEG в WebP онлайн</h1>
+          <h1>WebP в JPEG онлайн</h1>
           <p>
-            WebP позволяет существенно уменьшить размер JPEG-файлов, что
-            ускоряет загрузку сайтов и экономит трафик.
+            JPEG широко поддерживается всеми устройствами и программами.
+            Конвертация из WebP позволяет легко использовать изображения где
+            угодно.
           </p>
           <ul>
             {BASE_FAQ.map((f) => (

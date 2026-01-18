@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>http://localhost:3000/convert</loc><lastmod>2026-01-18T11:57:41.694Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>http://localhost:3000/jpeg-to-webp</loc><lastmod>2026-01-18T11:57:41.695Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>http://localhost:3000</loc><lastmod>2026-01-18T11:57:41.695Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>http://localhost:3000/png-to-jpeg</loc><lastmod>2026-01-18T11:57:41.695Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>http://localhost:3000/png-to-webp</loc><lastmod>2026-01-18T11:57:41.695Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>http://localhost:3000/sitemap.xml</loc><lastmod>2026-01-18T11:57:41.695Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>http://localhost:3000/webp-to-png</loc><lastmod>2026-01-18T11:57:41.695Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>http://localhost:3000/convert</loc><lastmod>2026-01-18T13:12:36.421Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>http://localhost:3000/jpeg-to-png</loc><lastmod>2026-01-18T13:12:36.422Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>http://localhost:3000/jpeg-to-webp</loc><lastmod>2026-01-18T13:12:36.422Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>http://localhost:3000</loc><lastmod>2026-01-18T13:12:36.422Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>http://localhost:3000/png-to-jpeg</loc><lastmod>2026-01-18T13:12:36.422Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>http://localhost:3000/png-to-webp</loc><lastmod>2026-01-18T13:12:36.422Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>http://localhost:3000/privacy</loc><lastmod>2026-01-18T13:12:36.422Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>http://localhost:3000/sitemap.xml</loc><lastmod>2026-01-18T13:12:36.422Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>http://localhost:3000/terms</loc><lastmod>2026-01-18T13:12:36.422Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>http://localhost:3000/webp-to-jpeg</loc><lastmod>2026-01-18T13:12:36.422Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>http://localhost:3000/webp-to-png</loc><lastmod>2026-01-18T13:12:36.422Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 </urlset>

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import UploadForm from "@/components/UploadForm";
-import BannerInline from "@/components/BannerInline";
+/* import BannerInline from "@/components/BannerInline"; */
+import { HOME_FAQ } from "@/lib/faq-home";
+import FaqSchema from "@/components/FaqSchema";
 
 export const metadata: Metadata = {
   title: "Конвертер изображений онлайн — WebP, PNG, JPEG",
@@ -11,29 +13,38 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col gap-10">
-      <section className="flex flex-col gap-3">
-        <h1 className="text-3xl font-semibold">
-          Конвертер изображений WebP / PNG / JPEG
-        </h1>
-        <p className="text-neutral-700 max-w-2xl">
-          Перетащи изображение, выбери выходной формат и скачай готовый файл.
-          Конвертация работает быстро и без регистрации.
-        </p>
-      </section>
+    <>
+      <FaqSchema faqs={HOME_FAQ} />
 
-      <UploadForm title="Конвертировать прямо сейчас" />
+      <div className="flex flex-col gap-10">
+        <section className="flex flex-col gap-3">
+          <h1 className="text-3xl font-semibold">
+            Конвертер изображений WebP / PNG / JPEG
+          </h1>
+          <p className="text-neutral-700 max-w-2xl">
+            Перетащи изображение, выбери выходной формат и скачай готовый файл.
+            Конвертация работает быстро и без регистрации.
+          </p>
+        </section>
 
-      <BannerInline />
+        <UploadForm title="Конвертировать прямо сейчас" />
 
-      <section className="prose max-w-none">
-        <h2>Популярные варианты</h2>
-        <ul>
-          <li><a href="/webp-to-png">WebP → PNG</a></li>
-          <li><a href="/png-to-jpeg">PNG → JPEG</a></li>
-          <li><a href="/jpeg-to-webp">JPEG → WebP</a></li>
-        </ul>
-      </section>
-    </div>
+        {/* <BannerInline /> */}
+
+        <section className="prose max-w-none">
+          <h2>Часто задаваемые вопросы</h2>
+
+          <ul>
+            {HOME_FAQ.map((f) => (
+              <li key={f.question}>
+                <strong>{f.question}</strong>
+                <br />
+                {f.answer}
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </>
   );
 }

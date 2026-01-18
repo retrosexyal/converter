@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Link from "next/link";
 import PropellerInPagePush from "@/components/PropellerInPagePush";
+import Header from "@/components/Header";
+import AdSafeArea from "@/components/AdSafeArea";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL || "https://example.com"),
@@ -44,42 +46,27 @@ export default function RootLayout({
     <html lang="ru">
       <body>
         <div className="min-h-dvh flex flex-col">
-          <header className="border-b">
-            <div className="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
-              <Link href="/" className="font-semibold">
-                Image Converter
-              </Link>
-              <nav className="text-sm flex gap-4">
-                <a className="hover:underline" href="/convert">
-                  Конвертировать
-                </a>
-                <a className="hover:underline" href="/webp-to-png">
-                  WebP→PNG
-                </a>
-                <a className="hover:underline" href="/png-to-jpeg">
-                  PNG→JPEG
-                </a>
-                <a className="hover:underline" href="/jpeg-to-webp">
-                  JPEG→WebP
-                </a>
-              </nav>
-            </div>
-          </header>
+          <Header />
 
           <main className="mx-auto w-full max-w-5xl px-4 py-10 flex-1">
             {children}
           </main>
 
           <footer className="border-t">
-            <div className="mx-auto max-w-5xl px-4 py-6 text-sm text-neutral-600 flex flex-col gap-2">
+            <div className="mx-auto max-w-5xl px-4 py-6 text-sm text-neutral-600 flex flex-col gap-2 items-center">
               <div>© {new Date().getFullYear()} Image Converter</div>
               <div className="text-xs">
                 Поддержка форматов: WebP, PNG, JPEG. Файлы используются только
                 для конвертации.
               </div>
+              <div className="flex gap-4 text-xs">
+                <Link href="/privacy">Privacy Policy</Link>
+                <Link href="/terms">Terms of Service</Link>
+              </div>
             </div>
           </footer>
         </div>
+        <AdSafeArea />
         <PropellerInPagePush />
       </body>
     </html>
