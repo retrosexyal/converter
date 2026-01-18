@@ -2,13 +2,15 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import ResultModal from "../ResultModal";
+import { DICTIONARY, Locale } from "@/dictionary";
 
 type OutFormat = "webp" | "jpeg" | "png";
 
 type Props = {
-  defaultFormat?: OutFormat; // предвыбор выходного формата
-  hideFormatSelect?: boolean; // скрыть селект (для SEO-страниц)
-  title?: string; // заголовок блока
+  locale?: Locale;
+  defaultFormat?: OutFormat;
+  hideFormatSelect?: boolean;
+  title?: string;
 };
 
 function detectInputLabel(file: File | null) {
@@ -29,10 +31,25 @@ function detectInputLabel(file: File | null) {
 }
 
 export default function UploadForm({
+  locale = "ru",
   defaultFormat = "webp",
   hideFormatSelect = false,
-  title = "Конвертация изображений",
+  title,
 }: Props) {
+  const {
+    uploadForm: {
+      blockTitle,
+      subtitle,
+      dragTitle,
+      dragHint,
+      removeFile,
+      outputFormatLabel,
+      errors,
+      info,
+      buttons,
+    },
+  } = DICTIONARY[locale];
+
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const [file, setFile] = useState<File | null>(null);
@@ -47,7 +64,6 @@ export default function UploadForm({
 
   const accept = useMemo(() => "image/webp,image/jpeg,image/png", []);
 
-  // если родитель поменял defaultFormat (например SEO-страница), синхронизируем
   useEffect(() => {
     setFormat(defaultFormat);
   }, [defaultFormat]);
@@ -79,15 +95,14 @@ export default function UploadForm({
       name.endsWith(".webp");
 
     if (!typeOk && !extOk) {
-      setError("Поддерживаются только PNG, JPEG, WebP");
+      setError(errors.unsupported);
       setFile(null);
       return;
     }
 
-    // лимит (совпадает с API, чтобы UX был понятнее)
     const MAX_MB = 15;
     if (f.size > MAX_MB * 1024 * 1024) {
-      setError(`Слишком большой файл (>${MAX_MB}MB)`);
+      setError(`${errors.tooLarge} (>${MAX_MB}MB)`);
       setFile(null);
       return;
     }
@@ -100,7 +115,7 @@ export default function UploadForm({
     setResultBlob(null);
 
     if (!file) {
-      setError("Сначала выбери файл");
+      setError(errors.noFile);
       return;
     }
 
@@ -115,7 +130,8 @@ export default function UploadForm({
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data?.error || "Ошибка конвертации");
+
+        throw new Error(data?.error || errors.convert);
       }
 
       const blob = await res.blob();
@@ -123,7 +139,7 @@ export default function UploadForm({
       setShowModal(true);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
-      setError(e?.message || "Неизвестная ошибка");
+      setError(e?.message || errors.unknown);
     } finally {
       setLoading(false);
     }
@@ -173,10 +189,8 @@ export default function UploadForm({
   return (
     <div className="border rounded p-5 flex flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <h2 className="text-lg font-semibold">{title}</h2>
-        <p className="text-sm text-neutral-600">
-          Входные форматы: WebP, PNG, JPEG. Перетащи файл или выбери вручную.
-        </p>
+        <h2 className="text-lg font-semibold">{title ?? blockTitle}</h2>
+        <p className="text-sm text-neutral-600">{subtitle}</p>
       </div>
 
       <div
@@ -203,16 +217,15 @@ export default function UploadForm({
 
         {!file ? (
           <div className="flex flex-col items-center gap-2 text-center">
-            <div className="text-sm font-medium">Drag & Drop сюда</div>
-            <div className="text-xs text-neutral-600">
-              или кликни, чтобы выбрать файл
-            </div>
+            <div className="text-sm font-medium">{dragTitle}</div>
+            <div className="text-xs text-neutral-600">{dragHint}</div>
           </div>
         ) : (
           <div className="flex flex-col gap-1">
             <div className="text-sm font-medium">{file.name}</div>
             <div className="text-xs text-neutral-600">
-              Размер: {Math.round(file.size / 1024)} KB • Входной формат:{" "}
+              {info.size}: {Math.round(file.size / 1024)} KB •{" "}
+              {info.inputFormat}:{" "}
               <span className="font-medium">{inputLabel}</span>
             </div>
             <button
@@ -224,7 +237,7 @@ export default function UploadForm({
                 setFile(null);
               }}
             >
-              Убрать файл
+              {removeFile}
             </button>
           </div>
         )}
@@ -232,7 +245,7 @@ export default function UploadForm({
 
       {!hideFormatSelect && (
         <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium">Выходной формат</label>
+          <label className="text-sm font-medium">{outputFormatLabel}</label>
           <select
             className="
     border rounded px-3 py-2 text-sm
@@ -263,7 +276,7 @@ export default function UploadForm({
 
       {hideFormatSelect && (
         <div className="text-sm text-neutral-700">
-          Выходной формат:{" "}
+          {outputFormatLabel}{" "}
           <span className="font-semibold">{format.toUpperCase()}</span>
         </div>
       )}
@@ -279,13 +292,14 @@ export default function UploadForm({
         onClick={onConvert}
         className="rounded bg-black text-white px-4 py-2 text-sm disabled:opacity-60"
       >
-        {loading ? "Конвертация..." : "Конвертировать"}
+        {loading ? buttons.converting : buttons.convert}
       </button>
 
       <ResultModal
         open={showModal}
         onClose={() => setShowModal(false)}
         onDownload={download}
+        locale={locale}
       />
     </div>
   );

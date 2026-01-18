@@ -1,14 +1,26 @@
 "use client";
 
+import { DICTIONARY } from "@/dictionary";
+import { Locale } from "@/lib/faq";
 import { useEffect } from "react";
 
 type Props = {
   open: boolean;
   onClose: () => void;
   onDownload: () => void;
+  locale: Locale;
 };
 
-export default function ResultModal({ open, onClose, onDownload }: Props) {
+export default function ResultModal({
+  open,
+  onClose,
+  onDownload,
+  locale,
+}: Props) {
+  const {
+    resultModal: { title, close, download /* , adTitle, adHint */ },
+  } = DICTIONARY[locale];
+
   // Здесь можно инициализировать рекламу (если сеть требует JS-инициализацию)
   useEffect(() => {
     if (!open) return;
@@ -21,14 +33,12 @@ export default function ResultModal({ open, onClose, onDownload }: Props) {
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
       <div className="w-full max-w-lg bg-white rounded shadow">
         <div className="p-4 border-b flex items-center justify-between">
-          <div className="font-semibold text-neutral-900">
-            Конвертация завершена
-          </div>
+          <div className="font-semibold text-neutral-900">{title}</div>
           <button
             className="text-sm underline text-neutral-900 hover:text-neutral-800"
             onClick={onClose}
           >
-            Закрыть
+            {close}
           </button>
         </div>
 
@@ -52,7 +62,7 @@ export default function ResultModal({ open, onClose, onDownload }: Props) {
             onClick={onDownload}
             className="rounded bg-black text-white px-4 py-2 text-sm hover:bg-neutral-800"
           >
-            Скачать файл
+            {download}
           </button>
         </div>
       </div>

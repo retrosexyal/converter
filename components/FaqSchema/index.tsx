@@ -5,7 +5,7 @@ type FAQ = {
   answer: string;
 };
 
-export default function FaqSchema({ faqs }: { faqs: FAQ[] }) {
+export default function FaqSchema({ faqs }: { faqs: readonly FAQ[] }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
