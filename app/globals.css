@@ -63,3 +63,27 @@ body {
 body {
   padding-bottom: var(--ad-safe-bottom);
 }
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border: none;
+}
+
+html,
+body {
+  scrollbar-width: none;
+}
+
+html,
+body {
+  -ms-overflow-style: none;
+}

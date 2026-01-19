@@ -229,56 +229,6 @@ export const DICTIONARY = {
       description:
         "JPEG — широко поддерживаемый формат изображений. Конвертация из AVIF в JPEG обеспечивает совместимость со всеми устройствами и приложениями.",
     },
-    avifToPng: {
-      metaTitle: "AVIF в PNG онлайн",
-      metaDescription:
-        "Конвертер AVIF в PNG онлайн. Получите PNG с поддержкой прозрачности.",
-
-      title: "AVIF → PNG",
-      h1: "Конвертация AVIF в PNG онлайн",
-      description:
-        "PNG поддерживает прозрачность и не использует сжатие с потерями. Конвертация AVIF в PNG подходит для графики, логотипов и интерфейсов.",
-    },
-    heicToJpeg: {
-      metaTitle: "HEIC в JPEG онлайн",
-      metaDescription:
-        "Конвертер HEIC в JPEG онлайн. Преобразуйте фото с iPhone в совместимый формат JPEG.",
-
-      title: "HEIC → JPEG",
-      h1: "Конвертация HEIC в JPEG онлайн",
-      description:
-        "HEIC — формат фотографий с iPhone. Конвертация в JPEG позволяет открыть изображения на любом устройстве и в любом приложении.",
-    },
-    heicToPng: {
-      metaTitle: "HEIC в PNG онлайн",
-      metaDescription:
-        "Конвертер HEIC в PNG онлайн. Преобразуйте фото с iPhone в формат PNG с поддержкой прозрачности.",
-
-      title: "HEIC → PNG",
-      h1: "Конвертация HEIC в PNG онлайн",
-      description:
-        "PNG использует сжатие без потерь и поддерживает прозрачность. Конвертация HEIC в PNG подходит для графики, логотипов и интерфейсов.",
-    },
-    heicToWebp: {
-      metaTitle: "HEIC в WebP онлайн",
-      metaDescription:
-        "Конвертер HEIC в WebP онлайн. Уменьшите размер фото с iPhone с помощью современного формата WebP.",
-
-      title: "HEIC → WebP",
-      h1: "Конвертация HEIC в WebP онлайн",
-      description:
-        "WebP — современный формат изображений с хорошим сжатием и поддержкой прозрачности. Конвертация HEIC в WebP подходит для веб-сайтов и онлайн-публикаций. Доступность может зависеть от поддержки HEIC на сервере.",
-    },
-    imageToIco: {
-      metaTitle: "Изображение в favicon (ICO) онлайн",
-      metaDescription:
-        "Онлайн-конвертер изображений в favicon (ICO). Создайте иконку сайта из PNG, JPEG или WebP.",
-
-      title: "Image → Favicon (ICO)",
-      h1: "Создание favicon (ICO) онлайн",
-      description:
-        "Favicon — это иконка сайта, отображаемая во вкладке браузера. Вы можете создать favicon в формате ICO из PNG, JPEG, WebP и других изображений всего за один шаг.",
-    },
   },
 
   en: {
@@ -359,16 +309,15 @@ export const DICTIONARY = {
         "WebP usually reduces image size without noticeable quality loss, making it ideal for websites and faster loading.",
     },
     webpToJpeg: {
-      metaTitle: "WebP to JPEG Online",
+      metaTitle: "WebP в JPEG онлайн",
       metaDescription:
-        "WebP to JPEG online converter. Quickly convert images to the JPG format.",
+        "Конвертер WebP в JPEG онлайн. Быстрое преобразование изображений в формат JPG.",
 
       title: "WebP → JPEG",
-      h1: "WebP to JPEG Online",
+      h1: "WebP в JPEG онлайн",
       description:
-        "JPEG is widely supported by all devices and software. Converting from WebP makes images easy to use anywhere.",
+        "JPEG широко поддерживается всеми устройствами и программами. Конвертация из WebP позволяет легко использовать изображения где угодно.",
     },
-
     webpToPng: {
       metaTitle: "WebP to PNG Online",
       metaDescription:
@@ -509,56 +458,6 @@ export const DICTIONARY = {
       h1: "AVIF to JPEG Online Converter",
       description:
         "JPEG is a widely supported image format. Converting AVIF to JPEG ensures compatibility with all devices and applications.",
-    },
-    avifToPng: {
-      metaTitle: "AVIF to PNG Online",
-      metaDescription:
-        "Convert AVIF to PNG online. Get PNG images with transparency support.",
-
-      title: "AVIF → PNG",
-      h1: "AVIF to PNG Online Converter",
-      description:
-        "PNG supports transparency and uses lossless compression. Converting AVIF to PNG is ideal for graphics, logos, and user interface elements.",
-    },
-    heicToJpeg: {
-      metaTitle: "HEIC to JPEG Online",
-      metaDescription:
-        "Convert HEIC to JPEG online. Turn iPhone photos into a widely supported JPEG format.",
-
-      title: "HEIC → JPEG",
-      h1: "HEIC to JPEG Online Converter",
-      description:
-        "HEIC is the image format used by iPhones. Converting HEIC to JPEG makes photos compatible with all devices and applications.",
-    },
-    heicToPng: {
-      metaTitle: "HEIC to PNG Online",
-      metaDescription:
-        "Convert HEIC to PNG online. Turn iPhone photos into PNG images with transparency support.",
-
-      title: "HEIC → PNG",
-      h1: "HEIC to PNG Online Converter",
-      description:
-        "PNG uses lossless compression and supports transparency. Converting HEIC to PNG is ideal for graphics, logos, and interface elements.",
-    },
-    heicToWebp: {
-      metaTitle: "HEIC to WebP Online",
-      metaDescription:
-        "Convert HEIC to WebP online. Reduce the size of iPhone photos using the modern WebP format.",
-
-      title: "HEIC → WebP",
-      h1: "HEIC to WebP Online Converter",
-      description:
-        "WebP is a modern image format offering efficient compression and transparency support. Converting HEIC to WebP is ideal for web usage. Availability may depend on HEIC support on the server.",
-    },
-    imageToIco: {
-      metaTitle: "Image to Favicon (ICO) Online",
-      metaDescription:
-        "Convert images to favicon (ICO) online. Create a website icon from PNG, JPEG, or WebP.",
-
-      title: "Image → Favicon (ICO)",
-      h1: "Create Favicon (ICO) Online",
-      description:
-        "A favicon is a small website icon displayed in browser tabs. You can easily create a favicon in ICO format from PNG, JPEG, WebP, and other image formats in just one step.",
     },
   },
 } as const;

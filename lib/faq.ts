@@ -11,12 +11,17 @@ export const FAQ = {
       {
         question: "Как работает онлайн конвертер изображений?",
         answer:
-          "Вы загружаете изображение, выбираете нужный формат и сразу скачиваете готовый файл. Установка программ не требуется.",
+          "Вы загружаете изображение, выбираете нужный выходной формат и сразу скачиваете готовый файл. Установка программ не требуется.",
       },
       {
         question: "Какие форматы изображений поддерживаются?",
         answer:
-          "Сервис поддерживает конвертацию между WebP, PNG и JPEG во всех направлениях.",
+          "Сервис поддерживает изображения JPG (JPEG), PNG, WebP, AVIF, HEIC, TIFF и GIF. Вы можете конвертировать файл в один из доступных выходных форматов.",
+      },
+      {
+        question: "Поддерживается ли формат HEIC (iPhone)?",
+        answer:
+          "Да, формат HEIC поддерживается. Обратите внимание, что его обработка может зависеть от технических возможностей сервера.",
       },
       {
         question: "Безопасно ли использовать сервис?",
@@ -28,7 +33,7 @@ export const FAQ = {
         answer: "Нет. Конвертация доступна бесплатно и без регистрации.",
       },
       {
-        question: "Можно ли использовать сервис на мобильных устройствах?",
+        question: "Можно ли пользоваться сервисом на мобильных устройствах?",
         answer:
           "Да. Конвертер полностью адаптирован для смартфонов и планшетов.",
       },
@@ -38,12 +43,17 @@ export const FAQ = {
       {
         question: "How does the online image converter work?",
         answer:
-          "You upload an image, choose the desired format, and download the converted file instantly. No software installation required.",
+          "You upload an image, choose the desired output format, and download the converted file instantly. No software installation required.",
       },
       {
         question: "Which image formats are supported?",
         answer:
-          "The service supports conversion between WebP, PNG, and JPEG in all directions.",
+          "The service supports images in JPG (JPEG), PNG, WebP, AVIF, HEIC, TIFF, and GIF formats. You can convert files to any supported output format.",
+      },
+      {
+        question: "Is HEIC (iPhone) format supported?",
+        answer:
+          "Yes, HEIC images are supported. Availability may depend on the technical capabilities of the server.",
       },
       {
         question: "Is it safe to use the service?",
@@ -68,12 +78,12 @@ export const FAQ = {
       {
         question: "Как работает онлайн конвертер изображений?",
         answer:
-          "Вы загружаете изображение, выбираете нужный формат и скачиваете готовый файл. Конвертация происходит автоматически.",
+          "Вы загружаете изображение, выбираете выходной формат и скачиваете готовый файл. Конвертация происходит автоматически.",
       },
       {
-        question: "Поддерживаются ли форматы WebP, PNG и JPEG?",
+        question: "Какие форматы изображений поддерживаются?",
         answer:
-          "Да, сервис поддерживает конвертацию между WebP, PNG и JPEG во всех направлениях.",
+          "Поддерживаются форматы JPG (JPEG), PNG, WebP, AVIF, HEIC, TIFF и GIF.",
       },
       {
         question: "Безопасно ли загружать изображения?",
@@ -83,7 +93,7 @@ export const FAQ = {
       {
         question: "Нужно ли регистрироваться?",
         answer:
-          "Нет, регистрация не требуется. Конвертация доступна бесплатно и без ограничений.",
+          "Нет, регистрация не требуется. Конвертация доступна бесплатно.",
       },
     ],
 
@@ -91,12 +101,12 @@ export const FAQ = {
       {
         question: "How does the online image converter work?",
         answer:
-          "You upload an image, select the desired format, and download the converted file. The process is fully automatic.",
+          "You upload an image, select the desired output format, and download the converted file. The process is fully automatic.",
       },
       {
-        question: "Are WebP, PNG, and JPEG formats supported?",
+        question: "Which image formats are supported?",
         answer:
-          "Yes, the service supports conversion between WebP, PNG, and JPEG in all directions.",
+          "Supported formats include JPG (JPEG), PNG, WebP, AVIF, HEIC, TIFF, and GIF.",
       },
       {
         question: "Is it safe to upload images?",
@@ -105,8 +115,7 @@ export const FAQ = {
       },
       {
         question: "Do I need to sign up?",
-        answer:
-          "No registration is required. Conversion is free and unlimited.",
+        answer: "No registration is required. Conversion is free to use.",
       },
     ],
   },

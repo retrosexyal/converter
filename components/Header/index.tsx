@@ -113,6 +113,9 @@ export default function Header({ locale = "ru" }: { locale?: "ru" | "en" }) {
     webp: "WebP",
     png: "PNG",
     jpeg: "JPEG",
+    avif: "AVIF",
+    heic: "HEIC",
+    favicon: isEn ? "Favicon" : "Фавиконка",
     menu: isEn ? "Menu" : "Меню",
     close: isEn ? "Close" : "Закрыть",
     home: isEn ? "All formats (home)" : "Все форматы (главная)",
@@ -124,6 +127,9 @@ export default function Header({ locale = "ru" }: { locale?: "ru" | "en" }) {
       { title: labels.webp, items: NAV.webp },
       { title: labels.png, items: NAV.png },
       { title: labels.jpeg, items: NAV.jpeg },
+      { title: labels.avif, items: NAV.avif },
+      { title: labels.heic, items: NAV.heic },
+      { title: labels.favicon, items: NAV.favicon },
     ],
     [labels],
   );
@@ -153,7 +159,21 @@ export default function Header({ locale = "ru" }: { locale?: "ru" | "en" }) {
             items={NAV.jpeg}
             locale={locale}
           />
-
+          <DesktopDropdown
+            label={labels.avif}
+            items={NAV.avif}
+            locale={locale}
+          />
+          <DesktopDropdown
+            label={labels.heic}
+            items={NAV.heic}
+            locale={locale}
+          />
+          <DesktopDropdown
+            label={labels.favicon}
+            items={NAV.favicon}
+            locale={locale}
+          />
           {/* Language switch */}
           <Link href={isEn ? "/" : "/en"} className="text-sm underline">
             {isEn ? "RU" : "EN"}
@@ -198,6 +218,13 @@ export default function Header({ locale = "ru" }: { locale?: "ru" | "en" }) {
                   className="block text-sm font-medium hover:underline"
                 >
                   {labels.home}
+                </Link>
+                <Link
+                  href={isEn ? "/" : "/en"}
+                  onClick={() => setMobileOpen(false)}
+                  className="block text-sm underline text-neutral-600 dark:text-neutral-300"
+                >
+                  {isEn ? "RU" : "EN"}
                 </Link>
               </div>
 

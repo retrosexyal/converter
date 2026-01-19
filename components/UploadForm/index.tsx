@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import ResultModal from "../ResultModal";
 import { DICTIONARY, Locale } from "@/dictionary";
 
-type OutFormat = "webp" | "jpeg" | "png";
+type OutFormat = "webp" | "jpeg" | "png" | "avif" | "tiff" | "gif" | "ico";
 
 type Props = {
   locale?: Locale;
@@ -17,17 +17,28 @@ function detectInputLabel(file: File | null) {
   if (!file) return null;
 
   const t = (file.type || "").toLowerCase();
+
   if (t === "image/png") return "PNG";
   if (t === "image/jpeg") return "JPEG";
   if (t === "image/webp") return "WebP";
+  if (t === "image/avif") return "AVIF";
+  if (t === "image/heic" || t === "image/heif") return "HEIC";
+  if (t === "image/tiff") return "TIFF";
+  if (t === "image/gif") return "GIF";
+  if (t === "image/x-icon" || t === "image/vnd.microsoft.icon") return "ICO";
 
-  // fallback по расширению, если type пустой
+  // fallback по расширению
   const name = file.name.toLowerCase();
   if (name.endsWith(".png")) return "PNG";
   if (name.endsWith(".jpg") || name.endsWith(".jpeg")) return "JPEG";
   if (name.endsWith(".webp")) return "WebP";
+  if (name.endsWith(".avif")) return "AVIF";
+  if (name.endsWith(".heic") || name.endsWith(".heif")) return "HEIC";
+  if (name.endsWith(".tif") || name.endsWith(".tiff")) return "TIFF";
+  if (name.endsWith(".gif")) return "GIF";
+  if (name.endsWith(".ico")) return "ICO";
 
-  return "Неизвестно";
+  return "Unknown";
 }
 
 export default function UploadForm({
@@ -62,7 +73,22 @@ export default function UploadForm({
   const [resultBlob, setResultBlob] = useState<Blob | null>(null);
   const [showModal, setShowModal] = useState(false);
 
-  const accept = useMemo(() => "image/webp,image/jpeg,image/png", []);
+  const accept = useMemo(
+    () =>
+      [
+        "image/webp",
+        "image/jpeg",
+        "image/png",
+        "image/avif",
+        "image/heic",
+        "image/heif",
+        "image/tiff",
+        "image/gif",
+        "image/x-icon",
+        "image/vnd.microsoft.icon",
+      ].join(","),
+    [],
+  );
 
   useEffect(() => {
     setFormat(defaultFormat);
@@ -83,7 +109,18 @@ export default function UploadForm({
       return;
     }
 
-    const allowed = new Set(["image/png", "image/jpeg", "image/webp"]);
+    const allowed = new Set([
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/avif",
+      "image/heic",
+      "image/heif",
+      "image/tiff",
+      "image/gif",
+      "image/x-icon",
+      "image/vnd.microsoft.icon",
+    ]);
     const typeOk = allowed.has((f.type || "").toLowerCase());
 
     // иногда type может быть пустым, проверим по расширению
@@ -92,7 +129,14 @@ export default function UploadForm({
       name.endsWith(".png") ||
       name.endsWith(".jpg") ||
       name.endsWith(".jpeg") ||
-      name.endsWith(".webp");
+      name.endsWith(".webp") ||
+      name.endsWith(".avif") ||
+      name.endsWith(".heic") ||
+      name.endsWith(".heif") ||
+      name.endsWith(".tif") ||
+      name.endsWith(".tiff") ||
+      name.endsWith(".gif") ||
+      name.endsWith(".ico");
 
     if (!typeOk && !extOk) {
       setError(errors.unsupported);
@@ -148,14 +192,20 @@ export default function UploadForm({
   function download() {
     if (!resultBlob) return;
 
-    // Если хочешь popunder по клику "Скачать" — вставляй сюда:
-    // window.open("https://ССЫЛКА_ОТ_РЕКЛАМНОЙ_СЕТИ", "_blank", "noopener,noreferrer");
+    const extMap: Record<OutFormat, string> = {
+      jpeg: "jpg",
+      webp: "webp",
+      png: "png",
+      avif: "avif",
+      tiff: "tiff",
+      gif: "gif",
+      ico: "ico",
+    };
 
-    const ext = format === "jpeg" ? "jpg" : format;
     const url = URL.createObjectURL(resultBlob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `converted.${ext}`;
+    a.download = `converted.${extMap[format]}`;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -261,6 +311,10 @@ export default function UploadForm({
               { val: "webp", label: "WebP" },
               { val: "jpeg", label: "JPEG" },
               { val: "png", label: "PNG" },
+              { val: "avif", label: "AVIF" },
+              { val: "tiff", label: "TIFF" },
+              { val: "gif", label: "GIF (static)" },
+              { val: "ico", label: "Favicon (ICO)" },
             ].map(({ val, label }) => (
               <option
                 value={val}
