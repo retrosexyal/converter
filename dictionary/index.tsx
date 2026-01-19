@@ -279,6 +279,17 @@ export const DICTIONARY = {
       description:
         "Favicon — это иконка сайта, отображаемая во вкладке браузера. Вы можете создать favicon в формате ICO из PNG, JPEG, WebP и других изображений всего за один шаг.",
     },
+    avifToWebp: {
+  metaTitle: "AVIF в WebP онлайн",
+  metaDescription:
+    "Конвертер AVIF в WebP онлайн. Преобразуйте изображения AVIF в формат WebP для веба.",
+
+  title: "AVIF → WebP",
+  h1: "Конвертация AVIF в WebP онлайн",
+  description:
+    "WebP — современный формат изображений с хорошим сжатием и широкой поддержкой браузеров. Конвертация из AVIF в WebP помогает обеспечить совместимость и оптимальный размер файлов.",
+},
+
   },
 
   en: {
@@ -560,6 +571,17 @@ export const DICTIONARY = {
       description:
         "A favicon is a small website icon displayed in browser tabs. You can easily create a favicon in ICO format from PNG, JPEG, WebP, and other image formats in just one step.",
     },
+    avifToWebp: {
+  metaTitle: "AVIF to WebP Online",
+  metaDescription:
+    "Convert AVIF to WebP online. Turn AVIF images into the widely supported WebP format.",
+
+  title: "AVIF → WebP",
+  h1: "AVIF to WebP Online Converter",
+  description:
+    "WebP is a modern image format with efficient compression and broad browser support. Converting AVIF to WebP helps ensure compatibility and optimal file size.",
+},
+
   },
 } as const;
 
