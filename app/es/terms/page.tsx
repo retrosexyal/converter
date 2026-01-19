@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { DICTIONARY, Locale } from "@/dictionary";
 
-const locale: Locale = "en";
+const locale: Locale = "es";
 
 const {
   terms: {

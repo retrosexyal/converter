@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import UploadForm from "@/components/UploadForm";
 import FaqSchema from "@/components/FaqSchema";
-import { FAQ, type Locale } from "@/lib/faq";
-import { DICTIONARY } from "@/dictionary";
+import { FAQ } from "@/lib/faq";
+import { DICTIONARY, Locale } from "@/dictionary";
 
 const locale: Locale = "ru";
 

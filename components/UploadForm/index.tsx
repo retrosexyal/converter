@@ -144,7 +144,7 @@ export default function UploadForm({
       return;
     }
 
-    const MAX_MB = 15;
+    const MAX_MB = 5;
     if (f.size > MAX_MB * 1024 * 1024) {
       setError(`${errors.tooLarge} (>${MAX_MB}MB)`);
       setFile(null);

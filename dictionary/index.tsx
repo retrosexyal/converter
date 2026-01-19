@@ -22,7 +22,6 @@ export const DICTIONARY = {
       privacy: "Privacy Policy",
       terms: "Terms of Service",
     },
-
     home: {
       metaTitle: "Онлайн-конвертер изображений — JPG, PNG, WebP, AVIF, HEIC",
       metaDescription:
@@ -280,18 +279,25 @@ export const DICTIONARY = {
         "Favicon — это иконка сайта, отображаемая во вкладке браузера. Вы можете создать favicon в формате ICO из PNG, JPEG, WebP и других изображений всего за один шаг.",
     },
     avifToWebp: {
-  metaTitle: "AVIF в WebP онлайн",
-  metaDescription:
-    "Конвертер AVIF в WebP онлайн. Преобразуйте изображения AVIF в формат WebP для веба.",
+      metaTitle: "AVIF в WebP онлайн",
+      metaDescription:
+        "Конвертер AVIF в WebP онлайн. Преобразуйте изображения AVIF в формат WebP для веба.",
 
-  title: "AVIF → WebP",
-  h1: "Конвертация AVIF в WebP онлайн",
-  description:
-    "WebP — современный формат изображений с хорошим сжатием и широкой поддержкой браузеров. Конвертация из AVIF в WebP помогает обеспечить совместимость и оптимальный размер файлов.",
-},
-
+      title: "AVIF → WebP",
+      h1: "Конвертация AVIF в WebP онлайн",
+      description:
+        "WebP — современный формат изображений с хорошим сжатием и широкой поддержкой браузеров. Конвертация из AVIF в WebP помогает обеспечить совместимость и оптимальный размер файлов.",
+    },
+    header: {
+      convert: "Конвертировать",
+      favicon: "Фавиконка",
+      menu: "Меню",
+      close: "Закрыть",
+      home: "Все форматы (главная)",
+      languageTitle: "Русский",
+    },
   },
-
+  
   en: {
     layout: {
       titleDefault: "Online Image Converter — JPG, PNG, WebP, AVIF, HEIC",
@@ -572,16 +578,343 @@ export const DICTIONARY = {
         "A favicon is a small website icon displayed in browser tabs. You can easily create a favicon in ICO format from PNG, JPEG, WebP, and other image formats in just one step.",
     },
     avifToWebp: {
-  metaTitle: "AVIF to WebP Online",
-  metaDescription:
-    "Convert AVIF to WebP online. Turn AVIF images into the widely supported WebP format.",
+      metaTitle: "AVIF to WebP Online",
+      metaDescription:
+        "Convert AVIF to WebP online. Turn AVIF images into the widely supported WebP format.",
 
-  title: "AVIF → WebP",
-  h1: "AVIF to WebP Online Converter",
-  description:
-    "WebP is a modern image format with efficient compression and broad browser support. Converting AVIF to WebP helps ensure compatibility and optimal file size.",
-},
+      title: "AVIF → WebP",
+      h1: "AVIF to WebP Online Converter",
+      description:
+        "WebP is a modern image format with efficient compression and broad browser support. Converting AVIF to WebP helps ensure compatibility and optimal file size.",
+    },
+    header: {
+      convert: "Convert",
+      favicon: "Favicon",
+      menu: "Menu",
+      close: "Close",
+      home: "All formats (home)",
+      languageTitle:"English"
 
+    },
+  },
+  es: {
+    layout: {
+      titleDefault:
+        "Convertidor de Imágenes Online — JPG, PNG, WebP, AVIF, HEIC",
+      titleTemplate: "%s — Convertidor de Imágenes Online",
+      description:
+        "Convertidor de imágenes online para JPG, PNG, WebP, AVIF, HEIC, TIFF y GIF. Rápido, seguro y gratuito. Descarga inmediata tras la conversión.",
+      applicationName: "Convertidor de Imágenes",
+
+      ogTitle: "Convertidor de Imágenes Online — JPG, PNG, WebP, AVIF, HEIC",
+      ogDescription:
+        "Convierte imágenes a JPG, PNG, WebP, AVIF y otros formatos de forma rápida y sencilla. No requiere registro.",
+
+      twitterTitle: "Convertidor de Imágenes Online",
+      twitterDescription:
+        "Convierte imágenes a JPG, PNG, WebP, AVIF y más con un solo clic.",
+
+      footerCopyright: "© {{year}} Convertidor de Imágenes",
+      footerFormats:
+        "Formatos compatibles: JPG, PNG, WebP, AVIF, HEIC, TIFF, GIF. Los archivos se utilizan solo para la conversión y no se almacenan.",
+
+      privacy: "Política de Privacidad",
+      terms: "Términos de Servicio",
+    },
+
+    home: {
+      metaTitle: "Convertidor de Imágenes Online — JPG, PNG, WebP, AVIF, HEIC",
+      metaDescription:
+        "Convertidor de imágenes online rápido. Compatible con JPG, PNG, WebP, AVIF, HEIC, TIFF y GIF. Arrastra un archivo, elige el formato y descarga sin registro.",
+
+      h1: "Convertidor de Imágenes Online",
+      lead: "Arrastra y suelta una imagen, elige el formato de salida (JPG, PNG, WebP, AVIF y más) y descarga el archivo convertido. Rápido y sin registro.",
+
+      cta: "Convertir imagen",
+
+      faqTitle: "Preguntas Frecuentes",
+    },
+
+    jpegToPng: {
+      metaTitle: "JPEG a PNG Online",
+      metaDescription:
+        "Convierte JPEG a PNG online. Obtén imágenes PNG con soporte de transparencia.",
+
+      title: "JPEG → PNG",
+      h1: "Convertir JPEG a PNG Online",
+      description:
+        "PNG admite transparencia y utiliza compresión sin pérdida. Ideal para logotipos y gráficos.",
+    },
+
+    jpegToWebp: {
+      metaTitle: "JPEG a WebP Online",
+      metaDescription:
+        "Convierte JPEG a WebP online. Reduce el tamaño del archivo sin pérdida notable de calidad.",
+
+      title: "JPEG → WebP",
+      h1: "Convertir JPEG a WebP Online",
+      description:
+        "WebP reduce significativamente el tamaño de las imágenes JPEG, mejorando la velocidad de carga y ahorrando ancho de banda.",
+    },
+
+    pngToJpeg: {
+      metaTitle: "PNG a JPEG Online",
+      metaDescription:
+        "Convierte PNG a JPEG online. Reduce el tamaño de archivos PNG rápida y gratuitamente.",
+
+      title: "PNG → JPEG",
+      h1: "Convertir PNG a JPEG Online",
+      description:
+        "JPEG suele ocupar menos espacio que PNG. Ideal para fotos e imágenes sin transparencia.",
+    },
+
+    pngToWebp: {
+      metaTitle: "PNG a WebP Online",
+      metaDescription:
+        "Convierte PNG a WebP online. Sube imágenes PNG y obtén WebP al instante.",
+
+      title: "PNG → WebP",
+      h1: "Convertir PNG a WebP Online",
+      description:
+        "WebP suele reducir el tamaño del archivo sin pérdida notable de calidad, ideal para sitios web y cargas más rápidas.",
+    },
+
+    webpToJpeg: {
+      metaTitle: "WebP a JPEG Online",
+      metaDescription:
+        "Convertidor online de WebP a JPEG. Convierte imágenes al formato JPG rápidamente.",
+
+      title: "WebP → JPEG",
+      h1: "Convertir WebP a JPEG Online",
+      description:
+        "JPEG es compatible con todos los dispositivos y programas. Convertir desde WebP facilita su uso en cualquier lugar.",
+    },
+
+    webpToPng: {
+      metaTitle: "WebP a PNG Online",
+      metaDescription:
+        "Convierte WebP a PNG online. Sube imágenes WebP y obtén archivos PNG sin pérdida.",
+
+      title: "WebP → PNG",
+      h1: "Convertir WebP a PNG Online",
+      description:
+        "PNG es ideal para imágenes con transparencia y calidad sin pérdida. La conversión desde WebP solo tarda unos segundos.",
+    },
+
+    privacy: {
+      metaTitle: "Política de Privacidad",
+      metaDescription:
+        "Política de privacidad del convertidor de imágenes online.",
+
+      h1: "Política de Privacidad",
+
+      intro: "Respetamos tu privacidad y no almacenamos las imágenes subidas.",
+
+      filesTitle: "Archivos",
+      filesText:
+        "Las imágenes subidas se utilizan exclusivamente para la conversión y se eliminan automáticamente.",
+
+      cookiesTitle: "Cookies y Publicidad",
+      cookiesText:
+        "El sitio web puede utilizar servicios publicitarios de terceros que emplean cookies para mostrar anuncios relevantes.",
+
+      contactsTitle: "Contacto",
+      contactsText:
+        "Si tienes alguna pregunta, puedes contactarnos a través de Telegram.",
+      telegramLabel: "Telegram: @Rocklobstar",
+    },
+
+    terms: {
+      metaTitle: "Términos de Servicio",
+      metaDescription:
+        "Términos de servicio del convertidor de imágenes online.",
+
+      h1: "Términos de Servicio",
+
+      intro: "Al utilizar este sitio web, aceptas estos términos de servicio.",
+
+      usageTitle: "Uso del Servicio",
+      usageText:
+        "El servicio se proporciona “tal cual”. No garantizamos un funcionamiento ininterrumpido ni la conservación de archivos.",
+
+      responsibilityTitle: "Responsabilidad",
+      responsibilityText:
+        "El usuario es el único responsable de los archivos que sube.",
+
+      changesTitle: "Cambios",
+      changesText:
+        "Podemos modificar estos términos de servicio sin previo aviso.",
+    },
+
+    uploadForm: {
+      blockTitle: "Conversión de Imágenes",
+      subtitle:
+        "Formatos de entrada: PNG, JPEG, WebP, AVIF, HEIC, TIFF, GIF. Arrastra un archivo o selecciónalo manualmente.",
+
+      dragTitle: "Arrastra y suelta aquí",
+      dragHint: "o haz clic para elegir un archivo",
+
+      removeFile: "Eliminar archivo",
+
+      outputFormat: "Formato de salida",
+      outputFormatLabel: "Formato de salida:",
+
+      formats: {
+        webp: "WebP",
+        jpeg: "JPEG",
+        png: "PNG",
+        avif: "AVIF",
+        tiff: "TIFF",
+        gif: "GIF (estático)",
+        ico: "Favicon (ICO)",
+      },
+
+      errors: {
+        unsupported:
+          "Formato de archivo no compatible. Formatos permitidos: PNG, JPEG, WebP, AVIF, HEIC, TIFF, GIF.",
+        tooLarge: "El archivo es demasiado grande",
+        noFile: "Por favor, selecciona un archivo primero",
+        convert: "Error al convertir la imagen",
+        unknown: "Error desconocido",
+      },
+
+      info: {
+        size: "Tamaño",
+        inputFormat: "Formato de entrada",
+      },
+
+      buttons: {
+        convert: "Convertir",
+        converting: "Convirtiendo...",
+      },
+    },
+
+    resultModal: {
+      title: "Conversión completada",
+      close: "Cerrar",
+      download: "Descargar archivo",
+
+      adTitle: "Publicidad",
+      adHint: "Apoya el servicio — esto ayuda a mantenerlo gratuito.",
+    },
+
+    jpegToAvif: {
+      metaTitle: "JPEG a AVIF Online",
+      metaDescription:
+        "Convierte JPEG a AVIF online. Reduce el tamaño manteniendo alta calidad.",
+
+      title: "JPEG → AVIF",
+      h1: "Convertidor de JPEG a AVIF Online",
+      description:
+        "AVIF es un formato moderno que ofrece una compresión superior y excelente calidad visual. Ideal para sitios web y dispositivos móviles.",
+    },
+
+    pngToAvif: {
+      metaTitle: "PNG a AVIF Online",
+      metaDescription:
+        "Convierte PNG a AVIF online. Reduce el tamaño del archivo manteniendo excelente calidad.",
+
+      title: "PNG → AVIF",
+      h1: "Convertidor de PNG a AVIF Online",
+      description:
+        "AVIF ofrece archivos mucho más pequeños que PNG manteniendo excelente calidad visual. Ideal para gráficos web e interfaces.",
+    },
+
+    webpToAvif: {
+      metaTitle: "WebP a AVIF Online",
+      metaDescription:
+        "Convierte WebP a AVIF online. Logra archivos más pequeños con compresión moderna.",
+
+      title: "WebP → AVIF",
+      h1: "Convertidor de WebP a AVIF Online",
+      description:
+        "AVIF ofrece una compresión aún mejor que WebP manteniendo excelente calidad. Ideal para mejorar el rendimiento web.",
+    },
+
+    avifToJpeg: {
+      metaTitle: "AVIF a JPEG Online",
+      metaDescription:
+        "Convierte AVIF a JPEG online. Transforma imágenes AVIF a un formato ampliamente compatible.",
+
+      title: "AVIF → JPEG",
+      h1: "Convertidor de AVIF a JPEG Online",
+      description:
+        "JPEG es un formato ampliamente compatible. Convertir AVIF a JPEG garantiza compatibilidad con todos los dispositivos y aplicaciones.",
+    },
+
+    avifToPng: {
+      metaTitle: "AVIF a PNG Online",
+      metaDescription:
+        "Convierte AVIF a PNG online. Obtén imágenes PNG con soporte de transparencia.",
+
+      title: "AVIF → PNG",
+      h1: "Convertidor de AVIF a PNG Online",
+      description:
+        "PNG admite transparencia y utiliza compresión sin pérdida. Ideal para gráficos, logotipos e interfaces.",
+    },
+
+    heicToJpeg: {
+      metaTitle: "HEIC a JPEG Online",
+      metaDescription:
+        "Convierte HEIC a JPEG online. Convierte fotos de iPhone a un formato compatible.",
+
+      title: "HEIC → JPEG",
+      h1: "Convertidor de HEIC a JPEG Online",
+      description:
+        "HEIC es el formato de imagen utilizado por los iPhone. Convertir HEIC a JPEG garantiza compatibilidad con todos los dispositivos.",
+    },
+
+    heicToPng: {
+      metaTitle: "HEIC a PNG Online",
+      metaDescription:
+        "Convierte HEIC a PNG online. Convierte fotos de iPhone a PNG con soporte de transparencia.",
+
+      title: "HEIC → PNG",
+      h1: "Convertidor de HEIC a PNG Online",
+      description:
+        "PNG utiliza compresión sin pérdida y admite transparencia. Ideal para gráficos e interfaces.",
+    },
+
+    heicToWebp: {
+      metaTitle: "HEIC a WebP Online",
+      metaDescription:
+        "Convierte HEIC a WebP online. Reduce el tamaño de las fotos de iPhone con WebP.",
+
+      title: "HEIC → WebP",
+      h1: "Convertidor de HEIC a WebP Online",
+      description:
+        "WebP es un formato moderno con compresión eficiente y soporte de transparencia. La disponibilidad puede depender del soporte HEIC del servidor.",
+    },
+
+    imageToIco: {
+      metaTitle: "Imagen a Favicon (ICO) Online",
+      metaDescription:
+        "Convierte imágenes a favicon (ICO) online. Crea un icono para tu sitio web fácilmente.",
+
+      title: "Imagen → Favicon (ICO)",
+      h1: "Crear Favicon (ICO) Online",
+      description:
+        "Un favicon es un pequeño icono que se muestra en las pestañas del navegador. Puedes crear fácilmente un favicon en formato ICO desde PNG, JPEG, WebP y otros formatos.",
+    },
+
+    avifToWebp: {
+      metaTitle: "AVIF a WebP Online",
+      metaDescription:
+        "Convierte AVIF a WebP online. Convierte imágenes AVIF al formato WebP compatible.",
+
+      title: "AVIF → WebP",
+      h1: "Convertidor de AVIF a WebP Online",
+      description:
+        "WebP es un formato moderno con compresión eficiente y amplio soporte en navegadores. Convertir AVIF a WebP mejora la compatibilidad y el tamaño del archivo.",
+    },
+    header: {
+      convert: "Convertir",
+      favicon: "Favicon",
+      menu: "Menú",
+      close: "Cerrar",
+      home: "Todos los formatos (inicio)",
+      languageTitle:"Español"
+    },
   },
 } as const;
 

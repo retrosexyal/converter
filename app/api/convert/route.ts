@@ -187,7 +187,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid image file" }, { status: 400 });
   }
 
-  const MAX_MB = 15;
+  const MAX_MB = 5;
   if (input.length > MAX_MB * 1024 * 1024) {
     return NextResponse.json(
       { error: `Слишком большой файл (>${MAX_MB}MB)` },

@@ -3,8 +3,6 @@ export type FaqItem = {
   answer: string;
 };
 
-export type Locale = "ru" | "en";
-
 export const FAQ = {
   home: {
     ru: [
@@ -71,6 +69,38 @@ export const FAQ = {
           "Yes. The converter is fully optimized for smartphones and tablets.",
       },
     ],
+    es: [
+      {
+        question: "¿Cómo funciona el convertidor de imágenes online?",
+        answer:
+          "Subes una imagen, eliges el formato de salida deseado y descargas el archivo convertido al instante. No es necesario instalar ningún software.",
+      },
+      {
+        question: "¿Qué formatos de imagen son compatibles?",
+        answer:
+          "El servicio admite imágenes en formatos JPG (JPEG), PNG, WebP, AVIF, HEIC, TIFF y GIF. Puedes convertir los archivos a cualquier formato de salida compatible.",
+      },
+      {
+        question: "¿Es compatible el formato HEIC (iPhone)?",
+        answer:
+          "Sí, las imágenes HEIC son compatibles. La disponibilidad puede depender de las capacidades técnicas del servidor.",
+      },
+      {
+        question: "¿Es seguro utilizar el servicio?",
+        answer:
+          "Sí. Las imágenes subidas se utilizan únicamente para la conversión y no se almacenan en el servidor.",
+      },
+      {
+        question: "¿Necesito registrarme?",
+        answer:
+          "No. La conversión está disponible de forma gratuita y sin necesidad de registro.",
+      },
+      {
+        question: "¿Puedo usar el servicio en dispositivos móviles?",
+        answer:
+          "Sí. El convertidor está totalmente optimizado para smartphones y tabletas.",
+      },
+    ],
   },
 
   base: {
@@ -116,6 +146,27 @@ export const FAQ = {
       {
         question: "Do I need to sign up?",
         answer: "No registration is required. Conversion is free to use.",
+      },
+    ],
+    es: [
+      {
+        question: "¿Cómo funciona el convertidor de imágenes online?",
+        answer:
+          "Subes una imagen, seleccionas el formato de salida deseado y descargas el archivo convertido. El proceso es completamente automático.",
+      },
+      {
+        question: "¿Qué formatos de imagen son compatibles?",
+        answer:
+          "Los formatos compatibles incluyen JPG (JPEG), PNG, WebP, AVIF, HEIC, TIFF y GIF.",
+      },
+      {
+        question: "¿Es seguro subir imágenes?",
+        answer:
+          "Sí. Los archivos se utilizan únicamente para la conversión y no se almacenan en el servidor.",
+      },
+      {
+        question: "¿Necesito registrarme?",
+        answer: "No es necesario registrarse. La conversión es gratuita.",
       },
     ],
   },

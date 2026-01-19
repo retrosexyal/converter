@@ -4,7 +4,7 @@ import FaqSchema from "@/components/FaqSchema";
 import { FAQ } from "@/lib/faq";
 import { DICTIONARY, type Locale } from "@/dictionary";
 
-const locale: Locale = "en";
+const locale: Locale = "es";
 
 const {
   jpegToWebp: { metaTitle, metaDescription, title, h1, description },

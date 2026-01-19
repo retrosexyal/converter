@@ -4,10 +4,10 @@ import FaqSchema from "@/components/FaqSchema";
 import { FAQ } from "@/lib/faq";
 import { DICTIONARY, type Locale } from "@/dictionary";
 
-const locale: Locale = "en";
+const locale: Locale = "es";
 
 const {
-  jpegToWebp: { metaTitle, metaDescription, title, h1, description },
+  pngToJpeg: { metaTitle, metaDescription, title, h1, description },
 } = DICTIONARY[locale];
 
 const faqs = FAQ.base[locale];
@@ -15,7 +15,7 @@ const faqs = FAQ.base[locale];
 export const metadata: Metadata = {
   title: metaTitle,
   description: metaDescription,
-  alternates: { canonical: `/${locale}/jpeg-to-webp` },
+  alternates: { canonical: `/${locale}/png-to-jpeg` },
 };
 
 export default function Page() {
@@ -24,7 +24,7 @@ export default function Page() {
       <FaqSchema faqs={faqs} />
 
       <div className="flex flex-col gap-10">
-        <UploadForm title={title} defaultFormat="webp" hideFormatSelect locale={locale}/>
+        <UploadForm title={title} defaultFormat="jpeg" hideFormatSelect locale={locale}/>
 
         <article className="prose max-w-none">
           <h1>{h1}</h1>

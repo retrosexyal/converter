@@ -3,20 +3,23 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { NAV } from "@/lib/navigation";
+import { DICTIONARY, Locale } from "@/dictionary";
 
 type NavItem = { href: string; label: string };
 
-const withLocale = (href: string, locale: "ru" | "en") =>
-  locale === "en" ? `/en${href === "/" ? "" : href}` : href;
+const withLocale = (href: string, locale: Locale) =>
+  locale !== "ru" ? `/${locale}${href === "/" ? "" : href}` : href;
 
 function DesktopDropdown({
   label,
   items,
   locale,
+  noLocale,
 }: {
   label: string;
   items: NavItem[];
-  locale: "ru" | "en";
+  locale: Locale;
+  noLocale?: boolean;
 }) {
   return (
     <div className="relative">
@@ -48,7 +51,7 @@ function DesktopDropdown({
             {items.map((item) => (
               <li key={item.href}>
                 <Link
-                  href={withLocale(item.href, locale)}
+                  href={noLocale ? item.href : withLocale(item.href, locale)}
                   className="block px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800"
                 >
                   {item.label}
@@ -62,6 +65,66 @@ function DesktopDropdown({
   );
 }
 
+const LOCALES: { code: Locale; label: string }[] = [
+  { code: "ru", label: "Русский" },
+  { code: "en", label: "English" },
+  { code: "es", label: "Español" },
+];
+
+function LanguageSelectMobile({
+  locale,
+  onNavigate,
+}: {
+  locale: Locale;
+  onNavigate: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  const current = LOCALES.find((l) => l.code === locale);
+
+  return (
+    <div className="border-t border-neutral-200 dark:border-neutral-800">
+      <button
+        type="button"
+        className="w-full px-4 py-3 flex items-center justify-between text-sm font-medium"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+      >
+        <span>
+          Language
+          {current && (
+            <span className="ml-2 text-neutral-500">({current.label})</span>
+          )}
+        </span>
+        <span aria-hidden>{open ? "▴" : "▾"}</span>
+      </button>
+
+      {open && (
+        <div className="pb-2">
+          {LOCALES.map((l) => (
+            <Link
+              key={l.code}
+              href={l.code === "ru" ? "/" : `/${l.code}`}
+              onClick={onNavigate}
+              className={`
+                block px-6 py-2 text-sm
+                hover:bg-neutral-100 dark:hover:bg-neutral-800
+                ${
+                  l.code === locale
+                    ? "font-semibold underline"
+                    : "text-neutral-700 dark:text-neutral-200"
+                }
+              `}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function MobileSection({
   title,
   items,
@@ -71,7 +134,7 @@ function MobileSection({
   title: string;
   items: NavItem[];
   onNavigate: () => void;
-  locale: "ru" | "en";
+  locale: Locale;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -104,80 +167,56 @@ function MobileSection({
   );
 }
 
-export default function Header({ locale = "ru" }: { locale?: "ru" | "en" }) {
+export default function Header({ locale = "ru" }: { locale?: Locale }) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const isEn = locale === "en";
-
-  const labels = {
-    convert: isEn ? "Convert" : "Конвертировать",
-    webp: "WebP",
-    png: "PNG",
-    jpeg: "JPEG",
-    avif: "AVIF",
-    heic: "HEIC",
-    favicon: isEn ? "Favicon" : "Фавиконка",
-    menu: isEn ? "Menu" : "Меню",
-    close: isEn ? "Close" : "Закрыть",
-    home: isEn ? "All formats (home)" : "Все форматы (главная)",
-  };
+  const notRu = locale !== "ru";
+  const {
+    header: { close, convert, favicon, home, menu, languageTitle },
+  } = DICTIONARY[locale];
 
   const mobileGroups = useMemo(
     () => [
-      { title: labels.convert, items: NAV.convert },
-      { title: labels.webp, items: NAV.webp },
-      { title: labels.png, items: NAV.png },
-      { title: labels.jpeg, items: NAV.jpeg },
-      { title: labels.avif, items: NAV.avif },
-      { title: labels.heic, items: NAV.heic },
-      { title: labels.favicon, items: NAV.favicon },
+      { title: convert, items: NAV.convert },
+      { title: "WebP", items: NAV.webp },
+      { title: "PNG", items: NAV.png },
+      { title: "JPEG", items: NAV.jpeg },
+      { title: "AVIF", items: NAV.avif },
+      { title: "HEIC", items: NAV.heic },
+      { title: favicon, items: NAV.favicon },
     ],
-    [labels],
+    [convert, favicon],
   );
 
   return (
     <header className="border-b border-neutral-200 dark:border-neutral-800">
       <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link href={isEn ? "/en" : "/"} className="font-semibold">
+        <Link href={notRu ? `/${locale}` : "/"} className="font-semibold">
           Image Converter
         </Link>
 
         {/* Desktop */}
         <nav className="hidden md:flex items-center gap-6">
           <DesktopDropdown
-            label={labels.convert}
+            label={convert}
             items={NAV.convert}
             locale={locale}
           />
+          <DesktopDropdown label="WebP" items={NAV.webp} locale={locale} />
+          <DesktopDropdown label="PNG" items={NAV.png} locale={locale} />
+          <DesktopDropdown label="JPEG" items={NAV.jpeg} locale={locale} />
+          <DesktopDropdown label="AVIF" items={NAV.avif} locale={locale} />
+          <DesktopDropdown label="HEIC" items={NAV.heic} locale={locale} />
           <DesktopDropdown
-            label={labels.webp}
-            items={NAV.webp}
-            locale={locale}
-          />
-          <DesktopDropdown label={labels.png} items={NAV.png} locale={locale} />
-          <DesktopDropdown
-            label={labels.jpeg}
-            items={NAV.jpeg}
-            locale={locale}
-          />
-          <DesktopDropdown
-            label={labels.avif}
-            items={NAV.avif}
-            locale={locale}
-          />
-          <DesktopDropdown
-            label={labels.heic}
-            items={NAV.heic}
-            locale={locale}
-          />
-          <DesktopDropdown
-            label={labels.favicon}
+            label={favicon}
             items={NAV.favicon}
             locale={locale}
           />
-          {/* Language switch */}
-          <Link href={isEn ? "/" : "/en"} className="text-sm underline">
-            {isEn ? "RU" : "EN"}
-          </Link>
+          <DesktopDropdown
+            label={languageTitle}
+            items={NAV.language}
+            locale={locale}
+            noLocale
+          />
         </nav>
 
         {/* Burger */}
@@ -200,32 +239,29 @@ export default function Header({ locale = "ru" }: { locale?: "ru" | "en" }) {
           />
           <div className="absolute right-0 top-0 h-full w-[85%] max-w-sm bg-white dark:bg-neutral-900 shadow-xl">
             <div className="h-14 px-4 flex items-center justify-between border-b">
-              <div className="font-semibold">{labels.menu}</div>
+              <div className="font-semibold">{menu}</div>
               <button
                 type="button"
                 className="text-sm underline"
                 onClick={() => setMobileOpen(false)}
               >
-                {labels.close}
+                {close}
               </button>
             </div>
 
             <div className="overflow-y-auto h-[calc(100%-56px)]">
               <div className="px-4 py-3">
                 <Link
-                  href={isEn ? "/en" : "/"}
+                  href={notRu ? `/${locale}` : "/"}
                   onClick={() => setMobileOpen(false)}
                   className="block text-sm font-medium hover:underline"
                 >
-                  {labels.home}
+                  {home}
                 </Link>
-                <Link
-                  href={isEn ? "/" : "/en"}
-                  onClick={() => setMobileOpen(false)}
-                  className="block text-sm underline text-neutral-600 dark:text-neutral-300"
-                >
-                  {isEn ? "RU" : "EN"}
-                </Link>
+                <LanguageSelectMobile
+                  locale={locale}
+                  onNavigate={() => setMobileOpen(false)}
+                />
               </div>
 
               {mobileGroups.map((g) => (

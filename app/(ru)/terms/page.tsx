@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import type { Locale } from "@/lib/faq";
-import { DICTIONARY } from "@/dictionary";
+import { DICTIONARY, type Locale } from "@/dictionary";
 
 const locale: Locale = "ru";
 

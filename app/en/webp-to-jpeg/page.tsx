@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import UploadForm from "@/components/UploadForm";
 import FaqSchema from "@/components/FaqSchema";
-import { FAQ, type Locale } from "@/lib/faq";
-import { DICTIONARY } from "@/dictionary";
+import { FAQ } from "@/lib/faq";
+import { DICTIONARY, type Locale } from "@/dictionary";
 
 const locale: Locale = "en";
 
@@ -24,7 +24,12 @@ export default function Page() {
       <FaqSchema faqs={faqs} />
 
       <div className="flex flex-col gap-10">
-        <UploadForm title={title} defaultFormat="jpeg" hideFormatSelect locale={locale}/>
+        <UploadForm
+          title={title}
+          defaultFormat="jpeg"
+          hideFormatSelect
+          locale={locale}
+        />
 
         <article className="prose max-w-none">
           <h1>{h1}</h1>

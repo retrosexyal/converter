@@ -38,4 +38,9 @@ export const NAV = {
     { href: "/heic-to-webp", label: "HEIC → WebP" },
   ],
   favicon: [{ href: "/image-to-ico", label: "Image → Favicon (ICO)" }],
+  language: [
+    { href: "/", label: "Русский" },
+    { href: "/en", label: "English" },
+    { href: "/es", label: "Español" },
+  ],
 };

@@ -1,7 +1,7 @@
 "use client";
 
-import { DICTIONARY } from "@/dictionary";
-import { Locale } from "@/lib/faq";
+import { DICTIONARY, Locale } from "@/dictionary";
+
 import { useEffect } from "react";
 
 type Props = {
