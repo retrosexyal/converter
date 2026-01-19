@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import sharp from "sharp";
+import convert from "@qs-coder/heic-convert";
 
 export const runtime = "nodejs";
 
@@ -50,6 +51,56 @@ function getExt(name: string) {
   return i !== -1 ? name.slice(i + 1).toLowerCase() : "";
 }
 
+export async function heicToPng(input: Buffer): Promise<Buffer> {
+  return convert({
+    buffer: input,
+    format: "PNG",
+    quality: 1,
+  });
+}
+
+/** HEIC → JPEG */
+export async function heicToJpeg(input: Buffer): Promise<Buffer> {
+  return convert({
+    buffer: input,
+    format: "JPEG",
+    quality: 0.95,
+  });
+}
+
+export async function heicToWebp(input: Buffer): Promise<Buffer> {
+  const png = await heicToPng(input);
+
+  return sharp(png).webp({ quality: 85 }).toBuffer();
+}
+
+export async function heicToAvif(input: Buffer): Promise<Buffer> {
+  const png = await heicToPng(input);
+  return sharp(png).avif({ quality: 50 }).toBuffer();
+}
+
+/** 5️⃣ HEIC → TIFF */
+export async function heicToTiff(input: Buffer): Promise<Buffer> {
+  const png = await heicToPng(input);
+  return sharp(png).tiff({ compression: "lzw" }).toBuffer();
+}
+
+/** 6️⃣ HEIC → GIF (static, first frame) */
+export async function heicToGif(input: Buffer): Promise<Buffer> {
+  const png = await heicToPng(input);
+  return sharp(png).gif().toBuffer();
+}
+
+export async function heicToIco(input: Buffer): Promise<Buffer> {
+  const png = await heicToPng(input);
+
+  // favicon best practice: 32x32
+  return sharp(png)
+    .resize(32, 32, { fit: "contain", background: "#0000" })
+    .toFormat("png")
+    .toBuffer();
+}
+
 export async function POST(req: Request) {
   const formData = await req.formData();
   const file = formData.get("file");
@@ -63,6 +114,7 @@ export async function POST(req: Request) {
   }
   const mime = (file.type || "").toLowerCase();
   const ext = getExt(file.name);
+
   const mimeOk =
     ALLOWED_IN_MIME.has(mime) ||
     mime === "" ||
@@ -75,6 +127,57 @@ export async function POST(req: Request) {
   }
 
   const input = Buffer.from(await file.arrayBuffer());
+
+  const isHeic = ext === "heic" || ext === "heif";
+
+  if (isHeic) {
+    let out: Buffer;
+    let contentType = "";
+
+    switch (format) {
+      case "png":
+        out = await heicToPng(input);
+        contentType = "image/png";
+        break;
+      case "jpeg":
+        out = await heicToJpeg(input);
+        contentType = "image/jpeg";
+        break;
+      case "webp":
+        out = await heicToWebp(input);
+        contentType = "image/webp";
+        break;
+      case "avif":
+        out = await heicToAvif(input);
+        contentType = "image/avif";
+        break;
+      case "tiff":
+        out = await heicToTiff(input);
+        contentType = "image/tiff";
+        break;
+      case "gif":
+        out = await heicToGif(input);
+        contentType = "image/gif";
+        break;
+      case "ico":
+        out = await heicToIco(input);
+        contentType = "image/png";
+        break;
+      default:
+        return NextResponse.json(
+          { error: "Unsupported output format for HEIC" },
+          { status: 400 },
+        );
+    }
+
+    return new NextResponse(new Uint8Array(out), {
+      headers: {
+        "Content-Type": contentType,
+        "Content-Disposition": `attachment; filename=converted.${format === "jpeg" ? "jpg" : format}`,
+        "Cache-Control": "no-store",
+      },
+    });
+  }
 
   try {
     await sharp(input).metadata();
