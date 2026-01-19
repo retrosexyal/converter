@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import sharp from "sharp";
 import convert from "@qs-coder/heic-convert";
 
+/* toDo сделать массовую конвертацию */
+
 export const runtime = "nodejs";
 
 const ALLOWED_OUT = new Set([
