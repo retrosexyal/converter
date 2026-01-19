@@ -42,5 +42,6 @@ export const NAV = {
     { href: "/", label: "Русский" },
     { href: "/en", label: "English" },
     { href: "/es", label: "Español" },
+    { href: "/de", label: "Deutsch" },
   ],
 };

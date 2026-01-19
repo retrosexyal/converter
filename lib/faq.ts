@@ -101,6 +101,38 @@ export const FAQ = {
           "Sí. El convertidor está totalmente optimizado para smartphones y tabletas.",
       },
     ],
+    de: [
+      {
+        question: "Wie funktioniert der Online-Bildkonverter?",
+        answer:
+          "Du lädst ein Bild hoch, wählst das gewünschte Ausgabeformat aus und lädst die konvertierte Datei sofort herunter. Keine Softwareinstallation erforderlich.",
+      },
+      {
+        question: "Welche Bildformate werden unterstützt?",
+        answer:
+          "Der Dienst unterstützt Bilder in den Formaten JPG (JPEG), PNG, WebP, AVIF, HEIC, TIFF und GIF. Du kannst Dateien in jedes unterstützte Ausgabeformat konvertieren.",
+      },
+      {
+        question: "Wird das HEIC-Format (iPhone) unterstützt?",
+        answer:
+          "Ja, HEIC-Bilder werden unterstützt. Die Verfügbarkeit kann von den technischen Möglichkeiten des Servers abhängen.",
+      },
+      {
+        question: "Ist die Nutzung des Dienstes sicher?",
+        answer:
+          "Ja. Hochgeladene Bilder werden ausschließlich für die Konvertierung verwendet und nicht auf dem Server gespeichert.",
+      },
+      {
+        question: "Muss ich mich registrieren?",
+        answer:
+          "Nein. Die Konvertierung ist kostenlos und ohne Registrierung möglich.",
+      },
+      {
+        question: "Kann ich den Dienst auf mobilen Geräten nutzen?",
+        answer:
+          "Ja. Der Konverter ist vollständig für Smartphones und Tablets optimiert.",
+      },
+    ],
   },
 
   base: {
@@ -167,6 +199,28 @@ export const FAQ = {
       {
         question: "¿Necesito registrarme?",
         answer: "No es necesario registrarse. La conversión es gratuita.",
+      },
+    ],
+    de: [
+      {
+        question: "Wie funktioniert der Online-Bildkonverter?",
+        answer:
+          "Du lädst ein Bild hoch, wählst das gewünschte Ausgabeformat aus und lädst die konvertierte Datei herunter. Der Vorgang läuft vollständig automatisch ab.",
+      },
+      {
+        question: "Welche Bildformate werden unterstützt?",
+        answer:
+          "Unterstützte Formate sind JPG (JPEG), PNG, WebP, AVIF, HEIC, TIFF und GIF.",
+      },
+      {
+        question: "Ist das Hochladen von Bildern sicher?",
+        answer:
+          "Ja. Die Dateien werden ausschließlich zur Konvertierung verwendet und nicht auf dem Server gespeichert.",
+      },
+      {
+        question: "Muss ich mich registrieren?",
+        answer:
+          "Nein, eine Registrierung ist nicht erforderlich. Die Konvertierung ist kostenlos.",
       },
     ],
   },

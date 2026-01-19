@@ -69,6 +69,7 @@ const LOCALES: { code: Locale; label: string }[] = [
   { code: "ru", label: "Русский" },
   { code: "en", label: "English" },
   { code: "es", label: "Español" },
+  { code: "de", label: "Deutsch" },
 ];
 
 function LanguageSelectMobile({
