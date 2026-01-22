@@ -6,7 +6,6 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html>
-      <head></head>
       <body>
         <div className="min-h-dvh flex flex-col">{children}</div>
         <AdSafeArea />

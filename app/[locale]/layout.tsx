@@ -13,11 +13,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
 
-  const dict = DICTIONARY[locale];
+  const dict = DICTIONARY[locale as Locale];
 
   if (!dict) notFound();
 
@@ -66,17 +66,17 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
 
   if (!locales.includes(locale)) notFound();
 
-  const dict = DICTIONARY[locale];
+  const dict = DICTIONARY[locale as Locale];
 
   return (
     <>
-      <Header locale={locale} />
+      <Header locale={locale as Locale} />
 
       <main className="mx-auto w-full max-w-5xl px-4 py-10 flex-1">
         {children}

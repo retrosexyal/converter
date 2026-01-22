@@ -8,10 +8,10 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const dict = DICTIONARY[locale];
+  const dict = DICTIONARY[locale as Locale];
 
   if (!dict) notFound();
 
@@ -24,18 +24,18 @@ export async function generateMetadata({
 export default async function HomePage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
-  const dict = DICTIONARY[locale];
+  const dict = DICTIONARY[locale as Locale];
 
   if (!dict) notFound();
 
   const {
     home: { h1, lead, cta, faqTitle },
   } = dict;
-  const faqs = FAQ.home[locale];
+  const faqs = FAQ.home[locale as Locale];
 
   return (
     <>
@@ -48,7 +48,7 @@ export default async function HomePage({
           <p className="text-neutral-700 max-w-2xl">{lead}</p>
         </section>
 
-        <UploadForm title={cta} locale={locale} />
+        <UploadForm title={cta} locale={locale as Locale} />
 
         <section className="prose max-w-none">
           <h2>{faqTitle}</h2>

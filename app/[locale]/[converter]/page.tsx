@@ -11,11 +11,13 @@ type ConverterType = keyof typeof DICTIONARY.en.converters;
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale; converter: ConverterType }>;
+  params: Promise<{ locale: string; converter: string }>;
 }): Promise<Metadata> {
-  const { locale, converter } = await params;
+  const { locale, converter: converterQuery } = await params;
 
-  const dict = DICTIONARY[locale];
+  const converter = converterQuery as ConverterType;
+
+  const dict = DICTIONARY[locale as Locale];
 
   if (!dict) notFound();
   if (!(converter in dict.converters)) notFound();
@@ -35,18 +37,20 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: {
-  params: Promise<{ locale: Locale; converter: ConverterType }>;
+  params: Promise<{ locale: string; converter: string }>;
 }) {
-  const { locale, converter } = await params;
+  const { locale, converter: converterQuery } = await params;
 
-  const dict = DICTIONARY[locale];
+  const dict = DICTIONARY[locale as Locale];
+
+  const converter = converterQuery as ConverterType;
 
   if (!dict) notFound();
   if (!(converter in dict.converters)) notFound();
 
   const page = dict.converters[converter as keyof typeof dict.converters];
 
-  const faqs = FAQ.base[locale];
+  const faqs = FAQ.base[locale as Locale];
 
   return (
     <>
@@ -57,7 +61,7 @@ export default async function Page({
           title={page.title}
           defaultFormat={converter.split("-to-")[1]}
           hideFormatSelect
-          locale={locale}
+          locale={locale as Locale}
         />
 
         <article className="prose max-w-none">

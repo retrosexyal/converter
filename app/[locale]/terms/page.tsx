@@ -26,11 +26,11 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
-  const dict = DICTIONARY[locale];
+  const dict = DICTIONARY[locale as Locale];
 
   if (!dict) notFound();
 
