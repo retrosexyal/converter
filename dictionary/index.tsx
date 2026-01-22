@@ -1,34 +1,34 @@
 export const DICTIONARY = {
   ru: {
     layout: {
-      titleDefault: "Онлайн-конвертер изображений — JPG, PNG, WebP, AVIF, HEIC",
+      titleDefault: "Онлайн-конвертер изображений — JPG, PNG, WebP, PDF, AVIF, HEIC",
       titleTemplate: "%s — Онлайн-конвертер изображений",
       description:
-        "Онлайн-конвертер изображений: JPG, PNG, WebP, AVIF, HEIC, TIFF, GIF. Быстро, безопасно и бесплатно. Скачивание сразу после конвертации.",
+        "Онлайн-конвертер изображений: JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF, GIF. Быстро, безопасно и бесплатно. Скачивание сразу после конвертации.",
       applicationName: "Image Converter",
 
-      ogTitle: "Онлайн-конвертер изображений — JPG, PNG, WebP, AVIF, HEIC",
+      ogTitle: "Онлайн-конвертер изображений — JPG, PNG, WebP, PDF, AVIF, HEIC",
       ogDescription:
-        "Конвертируй изображения в JPG, PNG, WebP, AVIF и другие форматы. Быстро, бесплатно и без регистрации.",
+        "Конвертируй изображения в JPG, PNG, WebP, PDF, AVIF и другие форматы. Быстро, бесплатно и без регистрации.",
 
       twitterTitle: "Онлайн-конвертер изображений",
       twitterDescription:
-        "Конвертация изображений в JPG, PNG, WebP, AVIF и другие форматы в один клик.",
+        "Конвертация изображений в JPG, PNG, WebP, PDF, AVIF и другие форматы в один клик.",
 
       footerCopyright: "© {{year}} Image Converter",
       footerFormats:
-        "Поддерживаемые форматы: JPG, PNG, WebP, AVIF, HEIC, TIFF, GIF. Файлы используются только для конвертации и не сохраняются.",
+        "Поддерживаемые форматы: JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF, GIF. Файлы используются только для конвертации и не сохраняются.",
 
       privacy: "Privacy Policy",
       terms: "Terms of Service",
     },
     home: {
-      metaTitle: "Онлайн-конвертер изображений — JPG, PNG, WebP, AVIF, HEIC",
+      metaTitle: "Онлайн-конвертер изображений — JPG, PNG, WebP, PDF, AVIF, HEIC",
       metaDescription:
-        "Быстрый онлайн-конвертер изображений. Поддержка JPG, PNG, WebP, AVIF, HEIC, TIFF и GIF. Перетащи файл, выбери формат и скачай результат без регистрации.",
+        "Быстрый онлайн-конвертер изображений. Поддержка JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF и GIF. Перетащи файл, выбери формат и скачай результат без регистрации.",
 
       h1: "Онлайн-конвертер изображений",
-      lead: "Перетащи изображение, выбери выходной формат (JPG, PNG, WebP, AVIF и другие) и скачай готовый файл. Конвертация работает быстро и без регистрации.",
+      lead: "Перетащи изображение, выбери выходной формат (JPG, PNG, WebP, PDF, AVIF и другие) и скачай готовый файл. Конвертация работает быстро и без регистрации.",
 
       cta: "Конвертировать изображение",
 
@@ -300,35 +300,35 @@ export const DICTIONARY = {
   
   en: {
     layout: {
-      titleDefault: "Online Image Converter — JPG, PNG, WebP, AVIF, HEIC",
+      titleDefault: "Online Image Converter — JPG, PNG, WebP, PDF, AVIF, HEIC",
       titleTemplate: "%s — Online Image Converter",
       description:
-        "Online image converter for JPG, PNG, WebP, AVIF, HEIC, TIFF and GIF. Fast, secure and free. Download instantly after conversion.",
+        "Online image converter for JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF and GIF. Fast, secure and free. Download instantly after conversion.",
       applicationName: "Image Converter",
 
-      ogTitle: "Online Image Converter — JPG, PNG, WebP, AVIF, HEIC",
+      ogTitle: "Online Image Converter — JPG, PNG, WebP, PDF, AVIF, HEIC",
       ogDescription:
-        "Convert images to JPG, PNG, WebP, AVIF and other formats quickly and easily. No registration required.",
+        "Convert images to JPG, PNG, WebP, PDF, AVIF and other formats quickly and easily. No registration required.",
 
       twitterTitle: "Online Image Converter",
       twitterDescription:
-        "Convert images to JPG, PNG, WebP, AVIF and more in one click.",
+        "Convert images to JPG, PNG, WebP, PDF, AVIF and more in one click.",
 
       footerCopyright: "© {{year}} Image Converter",
       footerFormats:
-        "Supported formats: JPG, PNG, WebP, AVIF, HEIC, TIFF, GIF. Files are used only for conversion and are not stored.",
+        "Supported formats: JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF, GIF. Files are used only for conversion and are not stored.",
 
       privacy: "Privacy Policy",
       terms: "Terms of Service",
     },
 
     home: {
-      metaTitle: "Online Image Converter — JPG, PNG, WebP, AVIF, HEIC",
+      metaTitle: "Online Image Converter — JPG, PNG, WebP, PDF, AVIF, HEIC",
       metaDescription:
-        "Fast online image converter. Supports JPG, PNG, WebP, AVIF, HEIC, TIFF and GIF. Drag a file, choose a format and download the result without registration.",
+        "Fast online image converter. Supports JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF and GIF. Drag a file, choose a format and download the result without registration.",
 
       h1: "Online Image Converter",
-      lead: "Drag and drop an image, choose the output format (JPG, PNG, WebP, AVIF and more) and download the converted file. Fast and no registration required.",
+      lead: "Drag and drop an image, choose the output format (JPG, PNG, WebP, PDF, AVIF and more) and download the converted file. Fast and no registration required.",
 
       cta: "Convert image",
 
@@ -600,35 +600,35 @@ export const DICTIONARY = {
   es: {
     layout: {
       titleDefault:
-        "Convertidor de Imágenes Online — JPG, PNG, WebP, AVIF, HEIC",
+        "Convertidor de Imágenes Online — JPG, PNG, WebP, PDF, AVIF, HEIC",
       titleTemplate: "%s — Convertidor de Imágenes Online",
       description:
-        "Convertidor de imágenes online para JPG, PNG, WebP, AVIF, HEIC, TIFF y GIF. Rápido, seguro y gratuito. Descarga inmediata tras la conversión.",
+        "Convertidor de imágenes online para JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF y GIF. Rápido, seguro y gratuito. Descarga inmediata tras la conversión.",
       applicationName: "Convertidor de Imágenes",
 
-      ogTitle: "Convertidor de Imágenes Online — JPG, PNG, WebP, AVIF, HEIC",
+      ogTitle: "Convertidor de Imágenes Online — JPG, PNG, WebP, PDF, AVIF, HEIC",
       ogDescription:
-        "Convierte imágenes a JPG, PNG, WebP, AVIF y otros formatos de forma rápida y sencilla. No requiere registro.",
+        "Convierte imágenes a JPG, PNG, WebP, PDF, AVIF y otros formatos de forma rápida y sencilla. No requiere registro.",
 
       twitterTitle: "Convertidor de Imágenes Online",
       twitterDescription:
-        "Convierte imágenes a JPG, PNG, WebP, AVIF y más con un solo clic.",
+        "Convierte imágenes a JPG, PNG, WebP, PDF, AVIF y más con un solo clic.",
 
       footerCopyright: "© {{year}} Convertidor de Imágenes",
       footerFormats:
-        "Formatos compatibles: JPG, PNG, WebP, AVIF, HEIC, TIFF, GIF. Los archivos se utilizan solo para la conversión y no se almacenan.",
+        "Formatos compatibles: JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF, GIF. Los archivos se utilizan solo para la conversión y no se almacenan.",
 
       privacy: "Política de Privacidad",
       terms: "Términos de Servicio",
     },
 
     home: {
-      metaTitle: "Convertidor de Imágenes Online — JPG, PNG, WebP, AVIF, HEIC",
+      metaTitle: "Convertidor de Imágenes Online — JPG, PNG, WebP, PDF, AVIF, HEIC",
       metaDescription:
-        "Convertidor de imágenes online rápido. Compatible con JPG, PNG, WebP, AVIF, HEIC, TIFF y GIF. Arrastra un archivo, elige el formato y descarga sin registro.",
+        "Convertidor de imágenes online rápido. Compatible con JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF y GIF. Arrastra un archivo, elige el formato y descarga sin registro.",
 
       h1: "Convertidor de Imágenes Online",
-      lead: "Arrastra y suelta una imagen, elige el formato de salida (JPG, PNG, WebP, AVIF y más) y descarga el archivo convertido. Rápido y sin registro.",
+      lead: "Arrastra y suelta una imagen, elige el formato de salida (JPG, PNG, WebP, PDF, AVIF y más) y descarga el archivo convertido. Rápido y sin registro.",
 
       cta: "Convertir imagen",
 
@@ -918,36 +918,36 @@ export const DICTIONARY = {
   },
   de: {
   layout: {
-    titleDefault: "Online-Bildkonverter — JPG, PNG, WebP, AVIF, HEIC",
+    titleDefault: "Online-Bildkonverter — JPG, PNG, WebP, PDF, AVIF, HEIC",
     titleTemplate: "%s — Online-Bildkonverter",
     description:
-      "Online-Bildkonverter für JPG, PNG, WebP, AVIF, HEIC, TIFF und GIF. Schnell, sicher und kostenlos. Sofortiger Download nach der Konvertierung.",
+      "Online-Bildkonverter für JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF und GIF. Schnell, sicher und kostenlos. Sofortiger Download nach der Konvertierung.",
     applicationName: "Bildkonverter",
 
-    ogTitle: "Online-Bildkonverter — JPG, PNG, WebP, AVIF, HEIC",
+    ogTitle: "Online-Bildkonverter — JPG, PNG, WebP, PDF, AVIF, HEIC",
     ogDescription:
-      "Bilder schnell und einfach in JPG, PNG, WebP, AVIF und andere Formate konvertieren. Keine Registrierung erforderlich.",
+      "Bilder schnell und einfach in JPG, PNG, WebP, PDF, AVIF und andere Formate konvertieren. Keine Registrierung erforderlich.",
 
     twitterTitle: "Online-Bildkonverter",
     twitterDescription:
-      "Konvertiere Bilder mit einem Klick in JPG, PNG, WebP, AVIF und mehr.",
+      "Konvertiere Bilder mit einem Klick in JPG, PNG, WebP, PDF, AVIF und mehr.",
 
     footerCopyright: "© {{year}} Bildkonverter",
     footerFormats:
-      "Unterstützte Formate: JPG, PNG, WebP, AVIF, HEIC, TIFF, GIF. Dateien werden nur zur Konvertierung verwendet und nicht gespeichert.",
+      "Unterstützte Formate: JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF, GIF. Dateien werden nur zur Konvertierung verwendet und nicht gespeichert.",
 
     privacy: "Datenschutzerklärung",
     terms: "Nutzungsbedingungen",
   },
 
   home: {
-    metaTitle: "Online-Bildkonverter — JPG, PNG, WebP, AVIF, HEIC",
+    metaTitle: "Online-Bildkonverter — JPG, PNG, WebP, PDF, AVIF, HEIC",
     metaDescription:
-      "Schneller Online-Bildkonverter. Unterstützt JPG, PNG, WebP, AVIF, HEIC, TIFF und GIF. Datei ziehen, Format wählen und ohne Registrierung herunterladen.",
+      "Schneller Online-Bildkonverter. Unterstützt JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF und GIF. Datei ziehen, Format wählen und ohne Registrierung herunterladen.",
 
     h1: "Online-Bildkonverter",
     lead:
-      "Ziehe ein Bild per Drag & Drop hierher, wähle das Ausgabeformat (JPG, PNG, WebP, AVIF und mehr) und lade die konvertierte Datei herunter. Schnell und ohne Registrierung.",
+      "Ziehe ein Bild per Drag & Drop hierher, wähle das Ausgabeformat (JPG, PNG, WebP, PDF, AVIF und mehr) und lade die konvertierte Datei herunter. Schnell und ohne Registrierung.",
 
     cta: "Bild konvertieren",
 

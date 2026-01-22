@@ -4,7 +4,15 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import ResultModal from "../ResultModal";
 import { DICTIONARY, Locale } from "@/dictionary";
 
-type OutFormat = "webp" | "jpeg" | "png" | "avif" | "tiff" | "gif" | "ico";
+type OutFormat =
+  | "webp"
+  | "jpeg"
+  | "png"
+  | "avif"
+  | "tiff"
+  | "gif"
+  | "ico"
+  | "pdf";
 
 type Props = {
   locale?: Locale;
@@ -200,6 +208,7 @@ export default function UploadForm({
       tiff: "tiff",
       gif: "gif",
       ico: "ico",
+      pdf: "pdf",
     };
 
     const url = URL.createObjectURL(resultBlob);
@@ -315,6 +324,7 @@ export default function UploadForm({
               { val: "tiff", label: "TIFF" },
               { val: "gif", label: "GIF (static)" },
               { val: "ico", label: "Favicon (ICO)" },
+              { val: "pdf", label: "PDF" },
             ].map(({ val, label }) => (
               <option
                 value={val}

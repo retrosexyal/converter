@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       (d) =>
         d.isDirectory() &&
         !d.name.startsWith("(") &&
-        !["api", "components"].includes(d.name)
+        !["api", "components"].includes(d.name),
     )
     .map((d) => d.name);
 
@@ -41,13 +41,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // главная
-  routes.push("/");
+  const mainRoutes = ["/", ...locales.map((lang) => `/${lang}`)];
 
-  return routes.map((route) => ({
+  return [...mainRoutes, ...routes].map((route) => ({
     url: `${siteUrl}${route}`,
     lastModified: now,
     changeFrequency: "weekly",
-    priority: route === "/" ? 1 : 0.8,
+    priority: mainRoutes.includes(route) ? 1 : 0.8,
   }));
 }

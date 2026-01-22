@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import sharp from "sharp";
 import convert from "@qs-coder/heic-convert";
+import { PDFDocument } from "pdf-lib";
 
 /* toDo сделать массовую конвертацию */
 
@@ -14,6 +15,7 @@ const ALLOWED_OUT = new Set([
   "tiff",
   "gif",
   "ico",
+  "pdf",
 ]);
 const ALLOWED_IN_MIME = new Set([
   "image/webp",
@@ -70,6 +72,21 @@ export async function heicToJpeg(input: Buffer): Promise<Buffer> {
   });
 }
 
+export async function heicToPdf(input: Buffer): Promise<Buffer> {
+  const png = await heicToPng(input);
+
+  const pdf = await PDFDocument.create();
+  const page = pdf.addPage();
+
+  const img = await pdf.embedPng(png);
+  const { width, height } = img.scale(1);
+
+  page.setSize(width, height);
+  page.drawImage(img, { x: 0, y: 0, width, height });
+
+  return Buffer.from(await pdf.save());
+}
+
 export async function heicToWebp(input: Buffer): Promise<Buffer> {
   const png = await heicToPng(input);
 
@@ -101,6 +118,24 @@ export async function heicToIco(input: Buffer): Promise<Buffer> {
     .resize(32, 32, { fit: "contain", background: "#0000" })
     .toFormat("png")
     .toBuffer();
+}
+
+async function imageToPdf(input: Buffer): Promise<Buffer> {
+  const meta = await sharp(input).metadata();
+  const png = await sharp(input).png().toBuffer();
+
+  const pdf = await PDFDocument.create();
+  const page = pdf.addPage();
+
+  const img = await pdf.embedPng(png);
+
+  const w = meta.width || img.width;
+  const h = meta.height || img.height;
+
+  page.setSize(w, h);
+  page.drawImage(img, { x: 0, y: 0, width: w, height: h });
+
+  return Buffer.from(await pdf.save());
 }
 
 export async function POST(req: Request) {
@@ -161,6 +196,10 @@ export async function POST(req: Request) {
         out = await heicToGif(input);
         contentType = "image/gif";
         break;
+      case "pdf":
+        out = await heicToPdf(input);
+        contentType = "application/pdf";
+        break;
       case "ico":
         out = await heicToIco(input);
         contentType = "image/png";
@@ -206,6 +245,17 @@ export async function POST(req: Request) {
       effort: 4, // баланс CPU / size
     });
   }
+  if (format === "pdf") {
+    const pdf = await imageToPdf(input);
+
+    return new NextResponse(new Uint8Array(pdf), {
+      headers: {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": "attachment; filename=converted.pdf",
+        "Cache-Control": "no-store",
+      },
+    });
+  }
 
   if (format === "tiff") {
     img = img.tiff({
@@ -228,7 +278,10 @@ export async function POST(req: Request) {
 
   const out = await img.toBuffer();
 
-  const contentType = format === "ico" ? "image/x-icon" : `image/${format}`;
+  const notIconFormat =
+    format === "pdf" ? "application/pdf" : `image/${format}`;
+
+  const contentType = format === "ico" ? "image/x-icon" : notIconFormat;
 
   return new NextResponse(new Uint8Array(out), {
     headers: {
