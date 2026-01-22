@@ -8,7 +8,7 @@ import { DICTIONARY, Locale } from "@/dictionary";
 type NavItem = { href: string; label: string };
 
 const withLocale = (href: string, locale: Locale) =>
-  locale !== "ru" ? `/${locale}${href === "/" ? "" : href}` : href;
+  `/${locale}${href === "/" ? "" : href}`;
 
 function DesktopDropdown({
   label,
@@ -105,7 +105,7 @@ function LanguageSelectMobile({
           {LOCALES.map((l) => (
             <Link
               key={l.code}
-              href={l.code === "ru" ? "/" : `/${l.code}`}
+              href={`/${l.code}`}
               onClick={onNavigate}
               className={`
                 block px-6 py-2 text-sm
@@ -168,9 +168,8 @@ function MobileSection({
   );
 }
 
-export default function Header({ locale = "ru" }: { locale?: Locale }) {
+export default function Header({ locale }: { locale: Locale }) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const notRu = locale !== "ru";
   const {
     header: { close, convert, favicon, home, menu, languageTitle },
   } = DICTIONARY[locale];
@@ -191,7 +190,7 @@ export default function Header({ locale = "ru" }: { locale?: Locale }) {
   return (
     <header className="border-b border-neutral-200 dark:border-neutral-800">
       <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link href={notRu ? `/${locale}` : "/"} className="font-semibold">
+        <Link href={`/${locale}`} className="font-semibold">
           Image Converter
         </Link>
 
@@ -253,7 +252,7 @@ export default function Header({ locale = "ru" }: { locale?: Locale }) {
             <div className="overflow-y-auto h-[calc(100%-56px)]">
               <div className="px-4 py-3">
                 <Link
-                  href={notRu ? `/${locale}` : "/"}
+                  href={`/${locale}`}
                   onClick={() => setMobileOpen(false)}
                   className="block text-sm font-medium hover:underline"
                 >

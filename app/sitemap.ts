@@ -1,52 +1,42 @@
 import type { MetadataRoute } from "next";
-import fs from "fs";
-import path from "path";
+import { DICTIONARY } from "@/dictionary";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = process.env.SITE_URL!;
   const now = new Date();
 
-  const appDir = path.join(process.cwd(), "app");
+  const routes: MetadataRoute.Sitemap = [];
 
-  // Берём эталонные страницы из (ru)
-  const rootDir = path.join(appDir, "(ru)");
+  const locales = Object.keys(DICTIONARY) as Array<keyof typeof DICTIONARY>;
 
-  const basePages = fs
-    .readdirSync(rootDir, { withFileTypes: true })
-    .filter((d) => d.isDirectory())
-    .map((d) => d.name);
-
-  // Языки
-  const locales = fs
-    .readdirSync(appDir, { withFileTypes: true })
-    .filter(
-      (d) =>
-        d.isDirectory() &&
-        !d.name.startsWith("(") &&
-        !["api", "components"].includes(d.name),
-    )
-    .map((d) => d.name);
-
-  const routes: string[] = [];
-
-  // корневые
-  for (const page of basePages) {
-    routes.push(`/${page}`);
-  }
-
-  // локализованные
   for (const locale of locales) {
-    for (const page of basePages) {
-      routes.push(`/${locale}/${page}`);
+    routes.push({
+      url: `${siteUrl}/${locale}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 1,
+    });
+
+    const dict = DICTIONARY[locale];
+
+    for (const slug of Object.keys(dict.converters)) {
+      routes.push({
+        url: `${siteUrl}/${locale}/${slug}`,
+        lastModified: now,
+        changeFrequency: "weekly",
+        priority: 0.8,
+      });
+    }
+
+    for (const page of ["privacy", "terms"]) {
+      routes.push({
+        url: `${siteUrl}/${locale}/${page}`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
     }
   }
 
-  const mainRoutes = ["/", ...locales.map((lang) => `/${lang}`)];
-
-  return [...mainRoutes, ...routes].map((route) => ({
-    url: `${siteUrl}${route}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: mainRoutes.includes(route) ? 1 : 0.8,
-  }));
+  return routes;
 }

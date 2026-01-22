@@ -16,7 +16,7 @@ type OutFormat =
 
 type Props = {
   locale?: Locale;
-  defaultFormat?: OutFormat;
+  defaultFormat?: string;
   hideFormatSelect?: boolean;
   title?: string;
 };
@@ -49,6 +49,35 @@ function detectInputLabel(file: File | null) {
   return "Unknown";
 }
 
+function showVignette() {
+  const customWindow = window as Window & {
+    __vignetteLoaded?: boolean;
+    __pushLoaded?: boolean;
+  };
+
+  if (!customWindow.__vignetteLoaded) {
+    const s = document.createElement("script");
+    s.src = "https://gizokraijaw.net/vignette.min.js";
+    s.dataset.zone = "10484844";
+    s.async = true;
+
+    document.body.appendChild(s);
+    customWindow.__vignetteLoaded = true;
+  }
+
+  if (!customWindow.__pushLoaded) {
+    const s = document.createElement("script");
+    s.src = "https://nap5k.com/tag.min.js";
+    s.dataset.zone = "10481781";
+    s.async = true;
+
+    document.body.appendChild(s);
+
+    document.body.appendChild(s);
+    customWindow.__pushLoaded = true;
+  }
+}
+
 export default function UploadForm({
   locale = "ru",
   defaultFormat = "webp",
@@ -74,7 +103,7 @@ export default function UploadForm({
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
-  const [format, setFormat] = useState<OutFormat>(defaultFormat);
+  const [format, setFormat] = useState<string>(defaultFormat);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -188,6 +217,8 @@ export default function UploadForm({
 
       const blob = await res.blob();
       setResultBlob(blob);
+
+      showVignette();
       setShowModal(true);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
@@ -200,7 +231,7 @@ export default function UploadForm({
   function download() {
     if (!resultBlob) return;
 
-    const extMap: Record<OutFormat, string> = {
+    const extMap: Record<string, string> = {
       jpeg: "jpg",
       webp: "webp",
       png: "png",
