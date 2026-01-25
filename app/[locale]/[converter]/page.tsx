@@ -8,6 +8,8 @@ import { notFound } from "next/navigation";
 const locales = Object.keys(DICTIONARY);
 type ConverterType = keyof typeof DICTIONARY.en.converters;
 
+export const dynamic = "force-static";
+
 export async function generateMetadata({
   params,
 }: {
@@ -29,7 +31,9 @@ export async function generateMetadata({
     description: page.metaDescription,
     alternates: {
       canonical: `/${locale}/${converter}`,
-      languages: Object.fromEntries(locales.map((l) => [l, `/${l}`])),
+      languages: Object.fromEntries(
+        locales.map((l) => [l, `/${l}/${converter}`]),
+      ),
     },
   };
 }

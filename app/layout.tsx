@@ -1,5 +1,10 @@
+import { Metadata } from "next";
 import "./globals.css";
 import AdSafeArea from "@/components/AdSafeArea";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://converter-murex.vercel.app"),
+};
 
 export default function RootLayout({
   children,
