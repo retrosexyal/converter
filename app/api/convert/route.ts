@@ -2,131 +2,78 @@ import { NextResponse } from "next/server";
 import sharp from "sharp";
 import convert from "@qs-coder/heic-convert";
 import { PDFDocument } from "pdf-lib";
-
-/* toDo сделать массовую конвертацию */
+import {
+  ALLOWED_IN_EXT,
+  ALLOWED_IN_MIME,
+  ALLOWED_OUT,
+  MAX_FILE_SIZE_MB,
+} from "@/constants";
+import JSZip from "jszip";
 
 export const runtime = "nodejs";
 
-const ALLOWED_OUT = new Set([
-  "webp",
-  "jpeg",
-  "png",
-  "avif",
-  "tiff",
-  "gif",
-  "ico",
-  "pdf",
-]);
-const ALLOWED_IN_MIME = new Set([
-  "image/webp",
-  "image/jpeg",
-  "image/png",
-  "image/avif",
-  "image/heic",
-  "image/heif",
-  "image/tiff",
-  "image/gif",
-  "image/bmp",
-  "image/x-icon",
-  "image/vnd.microsoft.icon",
-]);
+/* helpers */
 
 function safeExt(format: string) {
-  if (format === "jpeg") return "jpg";
-  return format;
+  return format === "jpeg" ? "jpg" : format;
 }
-
-const ALLOWED_IN_EXT = new Set([
-  "png",
-  "jpg",
-  "jpeg",
-  "webp",
-  "avif",
-  "heic",
-  "heif",
-  "tif",
-  "tiff",
-  "gif",
-  "ico",
-]);
 
 function getExt(name: string) {
   const i = name.lastIndexOf(".");
   return i !== -1 ? name.slice(i + 1).toLowerCase() : "";
 }
 
-export async function heicToPng(input: Buffer): Promise<Buffer> {
-  return convert({
-    buffer: input,
-    format: "PNG",
-    quality: 1,
-  });
+/* HEIC converters */
+
+export async function heicToPng(input: Buffer) {
+  return convert({ buffer: input, format: "PNG", quality: 1 });
 }
 
-/** HEIC → JPEG */
-export async function heicToJpeg(input: Buffer): Promise<Buffer> {
-  return convert({
-    buffer: input,
-    format: "JPEG",
-    quality: 0.95,
-  });
+export async function heicToJpeg(input: Buffer) {
+  return convert({ buffer: input, format: "JPEG", quality: 0.95 });
 }
 
-export async function heicToPdf(input: Buffer): Promise<Buffer> {
+export async function heicToPdf(input: Buffer) {
   const png = await heicToPng(input);
-
-  const pdf = await PDFDocument.create();
-  const page = pdf.addPage();
-
-  const img = await pdf.embedPng(png);
-  const { width, height } = img.scale(1);
-
-  page.setSize(width, height);
-  page.drawImage(img, { x: 0, y: 0, width, height });
-
-  return Buffer.from(await pdf.save());
+  return imageToPdf(png);
 }
 
-export async function heicToWebp(input: Buffer): Promise<Buffer> {
+export async function heicToWebp(input: Buffer) {
   const png = await heicToPng(input);
-
   return sharp(png).webp({ quality: 85 }).toBuffer();
 }
 
-export async function heicToAvif(input: Buffer): Promise<Buffer> {
+export async function heicToAvif(input: Buffer) {
   const png = await heicToPng(input);
   return sharp(png).avif({ quality: 50 }).toBuffer();
 }
 
-/** 5️⃣ HEIC → TIFF */
-export async function heicToTiff(input: Buffer): Promise<Buffer> {
+export async function heicToTiff(input: Buffer) {
   const png = await heicToPng(input);
   return sharp(png).tiff({ compression: "lzw" }).toBuffer();
 }
 
-/** 6️⃣ HEIC → GIF (static, first frame) */
-export async function heicToGif(input: Buffer): Promise<Buffer> {
+export async function heicToGif(input: Buffer) {
   const png = await heicToPng(input);
   return sharp(png).gif().toBuffer();
 }
 
-export async function heicToIco(input: Buffer): Promise<Buffer> {
+export async function heicToIco(input: Buffer) {
   const png = await heicToPng(input);
-
-  // favicon best practice: 32x32
   return sharp(png)
     .resize(32, 32, { fit: "contain", background: "#0000" })
-    .toFormat("png")
+    .png()
     .toBuffer();
 }
 
-async function imageToPdf(input: Buffer): Promise<Buffer> {
+/* shared */
+
+async function imageToPdf(input: Buffer) {
   const meta = await sharp(input).metadata();
   const png = await sharp(input).png().toBuffer();
 
   const pdf = await PDFDocument.create();
   const page = pdf.addPage();
-
   const img = await pdf.embedPng(png);
 
   const w = meta.width || img.width;
@@ -138,150 +85,145 @@ async function imageToPdf(input: Buffer): Promise<Buffer> {
   return Buffer.from(await pdf.save());
 }
 
+/* API */
+
 export async function POST(req: Request) {
   const formData = await req.formData();
-  const file = formData.get("file");
+  const files = formData.getAll("files") as File[];
   const format = String(formData.get("format") || "").toLowerCase();
 
-  if (!(file instanceof File)) {
-    return NextResponse.json({ error: "Fail not found" }, { status: 400 });
-  }
-  if (!ALLOWED_OUT.has(format)) {
-    return NextResponse.json({ error: "Wrong format" }, { status: 400 });
-  }
-  const mime = (file.type || "").toLowerCase();
-  const ext = getExt(file.name);
+  if (!files.length)
+    return NextResponse.json({ error: "No files" }, { status: 400 });
 
+  if (!ALLOWED_OUT.has(format))
+    return NextResponse.json({ error: "Wrong format" }, { status: 400 });
+
+  /* MULTI → ZIP */
+  if (files.length > 1) {
+    const zip = new JSZip();
+
+    for (const file of files) {
+      if (!(file instanceof File)) continue;
+
+      const ext = getExt(file.name);
+      const buf = Buffer.from(await file.arrayBuffer());
+
+      if (buf.length > MAX_FILE_SIZE_MB * 1024 * 1024) continue;
+
+      const mime = (file.type || "").toLowerCase();
+      const mimeOk =
+        ALLOWED_IN_MIME.has(mime) ||
+        mime === "" ||
+        mime === "application/octet-stream";
+
+      const extOk = ALLOWED_IN_EXT.has(ext);
+      if (!mimeOk || !extOk) continue;
+
+      let out: Buffer;
+      const isHeic = ext === "heic" || ext === "heif";
+
+      if (isHeic) {
+        if (format === "png") out = await heicToPng(buf);
+        else if (format === "jpeg") out = await heicToJpeg(buf);
+        else if (format === "webp") out = await heicToWebp(buf);
+        else if (format === "avif") out = await heicToAvif(buf);
+        else if (format === "tiff") out = await heicToTiff(buf);
+        else if (format === "gif") out = await heicToGif(buf);
+        else if (format === "pdf") out = await heicToPdf(buf);
+        else if (format === "ico") out = await heicToIco(buf);
+        else continue;
+      } else {
+        if (format === "pdf") out = await imageToPdf(buf);
+        else {
+          const fmt = format as
+            | "png"
+            | "jpeg"
+            | "webp"
+            | "avif"
+            | "tiff"
+            | "gif";
+          out = await sharp(buf).toFormat(fmt).toBuffer();
+        }
+      }
+
+      const base = file.name.replace(/\.[^/.]+$/, "");
+      zip.file(`${base}.${safeExt(format)}`, out);
+    }
+
+    const zipBuf = await zip.generateAsync({ type: "nodebuffer" });
+
+    return new NextResponse(new Uint8Array(zipBuf), {
+      headers: {
+        "Content-Type": "application/zip",
+        "Content-Disposition": "attachment; filename=converted-images.zip",
+      },
+    });
+  }
+
+  /* SINGLE */
+  const file = files[0];
+  const ext = getExt(file.name);
+  const buf = Buffer.from(await file.arrayBuffer());
+
+  if (buf.length > MAX_FILE_SIZE_MB * 1024 * 1024)
+    return NextResponse.json({ error: "File too large" }, { status: 413 });
+
+  const mime = (file.type || "").toLowerCase();
   const mimeOk =
     ALLOWED_IN_MIME.has(mime) ||
     mime === "" ||
     mime === "application/octet-stream";
 
   const extOk = ALLOWED_IN_EXT.has(ext);
-
-  if (!mimeOk || !extOk) {
+  if (!mimeOk || !extOk)
     return NextResponse.json({ error: "Wrong type" }, { status: 400 });
-  }
-
-  const input = Buffer.from(await file.arrayBuffer());
 
   const isHeic = ext === "heic" || ext === "heif";
 
+  let out: Buffer;
+  let contentType = "";
+
   if (isHeic) {
-    let out: Buffer;
-    let contentType = "";
+    if (format === "png") {
+      out = await heicToPng(buf);
+      contentType = "image/png";
+    } else if (format === "jpeg") {
+      out = await heicToJpeg(buf);
+      contentType = "image/jpeg";
+    } else if (format === "webp") {
+      out = await heicToWebp(buf);
+      contentType = "image/webp";
+    } else if (format === "avif") {
+      out = await heicToAvif(buf);
+      contentType = "image/avif";
+    } else if (format === "tiff") {
+      out = await heicToTiff(buf);
+      contentType = "image/tiff";
+    } else if (format === "gif") {
+      out = await heicToGif(buf);
+      contentType = "image/gif";
+    } else if (format === "pdf") {
+      out = await heicToPdf(buf);
+      contentType = "application/pdf";
+    } else if (format === "ico") {
+      out = await heicToIco(buf);
+      contentType = "image/png";
+    } else
+      return NextResponse.json(
+        { error: "Unsupported output format for HEIC" },
+        { status: 400 },
+      );
+  } else {
+    if (format === "pdf") {
+      out = await imageToPdf(buf);
+      contentType = "application/pdf";
+    } else {
+      const fmt = format as "png" | "jpeg" | "webp" | "avif" | "tiff" | "gif";
 
-    switch (format) {
-      case "png":
-        out = await heicToPng(input);
-        contentType = "image/png";
-        break;
-      case "jpeg":
-        out = await heicToJpeg(input);
-        contentType = "image/jpeg";
-        break;
-      case "webp":
-        out = await heicToWebp(input);
-        contentType = "image/webp";
-        break;
-      case "avif":
-        out = await heicToAvif(input);
-        contentType = "image/avif";
-        break;
-      case "tiff":
-        out = await heicToTiff(input);
-        contentType = "image/tiff";
-        break;
-      case "gif":
-        out = await heicToGif(input);
-        contentType = "image/gif";
-        break;
-      case "pdf":
-        out = await heicToPdf(input);
-        contentType = "application/pdf";
-        break;
-      case "ico":
-        out = await heicToIco(input);
-        contentType = "image/png";
-        break;
-      default:
-        return NextResponse.json(
-          { error: "Unsupported output format for HEIC" },
-          { status: 400 },
-        );
+      out = await sharp(buf).toFormat(fmt).toBuffer();
+      contentType = format === "ico" ? "image/x-icon" : `image/${format}`;
     }
-
-    return new NextResponse(new Uint8Array(out), {
-      headers: {
-        "Content-Type": contentType,
-        "Content-Disposition": `attachment; filename=converted.${format === "jpeg" ? "jpg" : format}`,
-        "Cache-Control": "no-store",
-      },
-    });
   }
-
-  try {
-    await sharp(input).metadata();
-  } catch {
-    return NextResponse.json({ error: "Invalid image file" }, { status: 400 });
-  }
-
-  const MAX_MB = 5;
-  if (input.length > MAX_MB * 1024 * 1024) {
-    return NextResponse.json(
-      { error: `Слишком большой файл (>${MAX_MB}MB)` },
-      { status: 413 },
-    );
-  }
-
-  let img = sharp(input, { failOn: "none", animated: false });
-
-  if (format === "webp") img = img.webp({ quality: 85 });
-  if (format === "jpeg") img = img.jpeg({ quality: 85, mozjpeg: true });
-  if (format === "png") img = img.png({ compressionLevel: 9 });
-  if (format === "avif") {
-    img = img.avif({
-      quality: 50, // sweet spot
-      effort: 4, // баланс CPU / size
-    });
-  }
-  if (format === "pdf") {
-    const pdf = await imageToPdf(input);
-
-    return new NextResponse(new Uint8Array(pdf), {
-      headers: {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": "attachment; filename=converted.pdf",
-        "Cache-Control": "no-store",
-      },
-    });
-  }
-
-  if (format === "tiff") {
-    img = img.tiff({
-      compression: "lzw",
-    });
-  }
-
-  if (format === "gif") {
-    img = img.gif(); // статичный GIF
-  }
-
-  if (format === "ico") {
-    img = img
-      .resize(64, 64, {
-        fit: "contain",
-        background: { r: 0, g: 0, b: 0, alpha: 0 },
-      })
-      .png();
-  }
-
-  const out = await img.toBuffer();
-
-  const notIconFormat =
-    format === "pdf" ? "application/pdf" : `image/${format}`;
-
-  const contentType = format === "ico" ? "image/x-icon" : notIconFormat;
 
   return new NextResponse(new Uint8Array(out), {
     headers: {
