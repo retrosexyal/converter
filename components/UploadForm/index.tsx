@@ -12,6 +12,7 @@ import {
   MAX_FILE_SIZE_MB,
   MAX_FILES,
 } from "@/constants";
+import { showPropellerVignette } from "../PropellerVignette";
 
 function detectInputLabel(file: File | null) {
   if (!file) return null;
@@ -146,6 +147,7 @@ export default function UploadForm({
   }
 
   async function onConvert() {
+    showPropellerVignette();
     if (!files.length) {
       setError(errors.noFile);
       return;
