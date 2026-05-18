@@ -8,6 +8,15 @@ import { notFound } from "next/navigation";
 const locales = Object.keys(DICTIONARY);
 type ConverterType = keyof typeof DICTIONARY.en.converters;
 
+export async function generateStaticParams() {
+  return locales.flatMap((locale) =>
+    Object.keys(DICTIONARY[locale as Locale].converters).map((converter) => ({
+      locale,
+      converter,
+    })),
+  );
+}
+
 export const dynamic = "force-static";
 
 export async function generateMetadata({

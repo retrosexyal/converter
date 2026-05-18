@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Client-side image converter
 
-## Getting Started
+This project is a static Next.js image converter. The conversion API route was removed: files are converted directly in the browser with Canvas, `pdf-lib`, and `jszip`.
 
-First, run the development server:
+## What changed
+
+- Removed `app/api/convert/route.ts`.
+- Removed direct server conversion dependencies (`sharp` and `@qs-coder/heic-convert`).
+- Added `lib/clientImageConverter.ts` for client-side conversion.
+- Updated `components/UploadForm` so it no longer sends files to `/api/convert`.
+- Enabled static export with `output: "export"`; `npm run build` creates the `out/` folder.
+
+## Supported browser-side outputs
+
+- PNG, JPEG, WebP via Canvas.
+- AVIF if the current browser supports Canvas AVIF export.
+- PDF via `pdf-lib`.
+- ZIP for multiple files via `jszip`.
+- Static GIF via a small browser encoder.
+- TIFF as uncompressed RGB TIFF.
+- ICO as a PNG-based 32×32 `.ico` file.
+
+## Important browser limitation
+
+Input decoding now depends on the browser. Common formats such as PNG, JPEG, WebP, GIF, BMP, AVIF and ICO work in browsers that support them. HEIC/HEIF and TIFF are not reliably decoded by most browsers without a WASM decoder or server-side processing, so the UI shows a clear error if the browser cannot read them.
+
+## Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Static build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The static site is generated into `out/` and can be hosted without a Node.js server.

@@ -24,6 +24,7 @@ export const ALLOWED_IN = [
   "image/tiff",
   "image/gif",
   "image/bmp",
+  "image/x-ms-bmp",
   "image/x-icon",
   "image/vnd.microsoft.icon",
 ]
@@ -42,4 +43,5 @@ export const ALLOWED_IN_EXT = new Set([
   "tiff",
   "gif",
   "ico",
+  "bmp",
 ]);

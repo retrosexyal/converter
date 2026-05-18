@@ -4,8 +4,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import ResultModal from "../ResultModal";
 import { DICTIONARY } from "@/dictionary";
 import { OutFormat, UploadFormProps } from "./models";
+import { convertFilesInBrowser } from "@/lib/clientImageConverter";
 import {
   ALLOWED_IN,
+  ALLOWED_IN_EXT,
   ALLOWED_IN_MIME,
   MAX_FILE_SIZE_MB,
   MAX_FILES,
@@ -126,19 +128,8 @@ export default function UploadForm({
 
     for (const f of list) {
       const typeOk = ALLOWED_IN_MIME.has((f.type || "").toLowerCase());
-      const name = f.name.toLowerCase();
-      const extOk =
-        name.endsWith(".png") ||
-        name.endsWith(".jpg") ||
-        name.endsWith(".jpeg") ||
-        name.endsWith(".webp") ||
-        name.endsWith(".avif") ||
-        name.endsWith(".heic") ||
-        name.endsWith(".heif") ||
-        name.endsWith(".tif") ||
-        name.endsWith(".tiff") ||
-        name.endsWith(".gif") ||
-        name.endsWith(".ico");
+      const ext = f.name.split(".").pop()?.toLowerCase() || "";
+      const extOk = ALLOWED_IN_EXT.has(ext);
 
       if (!typeOk && !extOk) continue;
       if (f.size > MAX_FILE_SIZE_MB * 1024 * 1024) continue;
@@ -162,32 +153,15 @@ export default function UploadForm({
 
     setLoading(true);
 
-    const fd = new FormData();
-    files.forEach((f) => fd.append("files", f));
-    fd.append("format", format);
-
     try {
-      const res = await fetch("/api/convert", {
-        method: "POST",
-        body: fd,
-      });
+      const result = await convertFilesInBrowser(files, format);
 
-      if (!res.ok) throw new Error(errors.convert);
-
-      const blob = await res.blob();
-      const serverName = res.headers.get("X-Filename");
-
-      setDownloadName(
-        serverName ||
-          (files.length > 1 ? "converted-images.zip" : `converted.${format}`),
-      );
-
-      setResultBlob(blob);
+      setDownloadName(result.name);
+      setResultBlob(result.blob);
       showVignette();
       setShowModal(true);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: any) {
-      setError(e?.message || errors.unknown);
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : errors.unknown);
     } finally {
       setLoading(false);
     }

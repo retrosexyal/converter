@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { DICTIONARY } from "@/dictionary";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = process.env.SITE_URL!;
   const now = new Date();
