@@ -1,5 +1,5 @@
-export const MAX_FILE_SIZE_MB = 7;
-export const MAX_FILES = 7;
+export const MAX_FILE_SIZE_MB = 25;
+export const MAX_FILES = 20;
 
 export const ALLOWED_OUT_FORMAT = [
   "webp",
