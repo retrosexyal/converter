@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
 import { DICTIONARY } from "@/dictionary";
+import { alternateLanguages, SITE_URL } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.SITE_URL!;
+  const siteUrl = SITE_URL;
   const now = new Date();
 
   const routes: MetadataRoute.Sitemap = [];
@@ -17,6 +18,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 1,
+      alternates: {
+        languages: alternateLanguages(locales, (l) => `${siteUrl}/${l}`),
+      },
     });
 
     const dict = DICTIONARY[locale];
@@ -27,6 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: now,
         changeFrequency: "weekly",
         priority: 0.8,
+        alternates: {
+          languages: alternateLanguages(
+            locales,
+            (l) => `${siteUrl}/${l}/${slug}`,
+          ),
+        },
       });
     }
 
@@ -36,6 +46,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: now,
         changeFrequency: "monthly",
         priority: 0.6,
+        alternates: {
+          languages: alternateLanguages(
+            locales,
+            (l) => `${siteUrl}/${l}/${page}`,
+          ),
+        },
       });
     }
   }

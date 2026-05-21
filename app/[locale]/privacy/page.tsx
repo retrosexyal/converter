@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { DICTIONARY, Locale } from "@/dictionary";
+import { alternateLanguages } from "@/lib/seo";
 import { notFound } from "next/navigation";
+
+const locales = Object.keys(DICTIONARY);
 
 export async function generateMetadata({
   params,
@@ -19,7 +22,10 @@ export async function generateMetadata({
   return {
     title: metaTitle,
     description: metaDescription,
-    alternates: { canonical: `/${locale}/privacy` },
+    alternates: {
+      canonical: `/${locale}/privacy`,
+      languages: alternateLanguages(locales, (l) => `/${l}/privacy`),
+    },
   };
 }
 

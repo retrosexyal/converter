@@ -2,6 +2,7 @@ import FaqSchema from "@/components/FaqSchema";
 import UploadForm from "@/components/UploadForm";
 import { DICTIONARY, Locale } from "@/dictionary";
 import { FAQ } from "@/lib/faq";
+import { alternateLanguages, SITE_URL } from "@/lib/seo";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -40,9 +41,12 @@ export async function generateMetadata({
     description: page.metaDescription,
     alternates: {
       canonical: `/${locale}/${converter}`,
-      languages: Object.fromEntries(
-        locales.map((l) => [l, `/${l}/${converter}`]),
-      ),
+      languages: alternateLanguages(locales, (l) => `/${l}/${converter}`),
+    },
+    openGraph: {
+      title: page.metaTitle,
+      description: page.metaDescription,
+      url: `/${locale}/${converter}`,
     },
   };
 }
@@ -103,13 +107,13 @@ export default async function Page({
                 "@type": "ListItem",
                 position: 1,
                 name: locale.toUpperCase(),
-                item: `/${locale}`,
+                item: `${SITE_URL}/${locale}`,
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: page.h1,
-                item: `/${locale}/${converter}`,
+                item: `${SITE_URL}/${locale}/${converter}`,
               },
             ],
           }),

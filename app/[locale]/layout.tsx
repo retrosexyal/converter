@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import { DICTIONARY, type Locale } from "@/dictionary";
 import { notFound } from "next/navigation";
+import { alternateLanguages, SITE_URL } from "@/lib/seo";
 
 const locales = Object.keys(DICTIONARY);
 
@@ -40,7 +41,7 @@ export async function generateMetadata({
 
     alternates: {
       canonical: `/${locale}`,
-      languages: Object.fromEntries(locales.map((l) => [l, `/${l}`])),
+      languages: alternateLanguages(locales, (l) => `/${l}`),
     },
     twitter: {
       card: "summary_large_image",
@@ -106,7 +107,7 @@ export default async function RootLayout({
             "@context": "https://schema.org",
             "@type": "WebApplication",
             name: dict.layout.applicationName,
-            url: `https://converter-murex.vercel.app/${locale}`,
+            url: `${SITE_URL}/${locale}`,
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             inLanguage: locale,
