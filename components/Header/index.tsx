@@ -72,6 +72,13 @@ const LOCALES: { code: Locale; label: string }[] = [
   { code: "de", label: "Deutsch" },
 ];
 
+const VIDEO_LABELS: Record<Locale, string> = {
+  ru: "Видео",
+  en: "Video",
+  es: "Video",
+  de: "Video",
+};
+
 function LanguageSelectMobile({
   locale,
   onNavigate,
@@ -211,6 +218,12 @@ export default function Header({ locale }: { locale: Locale }) {
             items={NAV.favicon}
             locale={locale}
           />
+          <Link
+            href={`/${locale}/video`}
+            className="text-sm font-medium hover:underline"
+          >
+            {VIDEO_LABELS[locale]}
+          </Link>
           <DesktopDropdown
             label={languageTitle}
             items={NAV.language}
@@ -257,6 +270,13 @@ export default function Header({ locale }: { locale: Locale }) {
                   className="block text-sm font-medium hover:underline"
                 >
                   {home}
+                </Link>
+                <Link
+                  href={`/${locale}/video`}
+                  onClick={() => setMobileOpen(false)}
+                  className="block text-sm font-medium hover:underline mt-3"
+                >
+                  {VIDEO_LABELS[locale]}
                 </Link>
                 <LanguageSelectMobile
                   locale={locale}

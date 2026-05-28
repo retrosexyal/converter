@@ -25,6 +25,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     const dict = DICTIONARY[locale];
 
+    routes.push({
+      url: `${siteUrl}/${locale}/video`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+      alternates: {
+        languages: alternateLanguages(
+          locales,
+          (l) => `${siteUrl}/${l}/video`,
+        ),
+      },
+    });
+
     for (const slug of Object.keys(dict.converters)) {
       routes.push({
         url: `${siteUrl}/${locale}/${slug}`,
