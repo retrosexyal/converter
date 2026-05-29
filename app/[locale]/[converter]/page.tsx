@@ -1,5 +1,6 @@
 import FaqSchema from "@/components/FaqSchema";
 import UploadForm from "@/components/UploadForm";
+import YandexAdSlot from "@/components/YandexAdSlot";
 import { DICTIONARY, Locale } from "@/dictionary";
 import { FAQ } from "@/lib/faq";
 import { alternateLanguages, SITE_URL } from "@/lib/seo";
@@ -80,6 +81,8 @@ export default async function Page({
           hideFormatSelect
           locale={locale as Locale}
         />
+
+        <YandexAdSlot placement={`converter-${converter}-after-form`} />
 
         <article className="prose max-w-none">
           <h1>{page.h1}</h1>

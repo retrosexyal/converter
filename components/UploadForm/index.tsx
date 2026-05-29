@@ -12,7 +12,6 @@ import {
   MAX_FILE_SIZE_MB,
   MAX_FILES,
 } from "@/constants";
-import { showPropellerVignette } from "../PropellerVignette";
 
 function detectInputLabel(file: File | null) {
   if (!file) return null;
@@ -37,31 +36,6 @@ function detectInputLabel(file: File | null) {
   if (name.endsWith(".ico")) return "ICO";
 
   return "Unknown";
-}
-
-function showVignette() {
-  const w = window as Window & {
-    __vignetteLoaded?: boolean;
-    __pushLoaded?: boolean;
-  };
-
-  if (!w.__vignetteLoaded) {
-    const s = document.createElement("script");
-    s.src = "https://gizokraijaw.net/vignette.min.js";
-    s.dataset.zone = "10484844";
-    s.async = true;
-    document.body.appendChild(s);
-    w.__vignetteLoaded = true;
-  }
-
-  if (!w.__pushLoaded) {
-    const s = document.createElement("script");
-    s.src = "https://nap5k.com/tag.min.js";
-    s.dataset.zone = "10481781";
-    s.async = true;
-    document.body.appendChild(s);
-    w.__pushLoaded = true;
-  }
 }
 
 export default function UploadForm({
@@ -147,7 +121,6 @@ export default function UploadForm({
   }
 
   async function onConvert() {
-    showPropellerVignette();
     if (!files.length) {
       setError(errors.noFile);
       return;
@@ -160,7 +133,6 @@ export default function UploadForm({
 
       setDownloadName(result.name);
       setResultBlob(result.blob);
-      showVignette();
       setShowModal(true);
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : errors.unknown);

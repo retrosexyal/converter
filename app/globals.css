@@ -43,25 +43,8 @@ body {
   overflow-y: auto;
 }
 
-[data-zone] {
-  min-height: 0 !important;
-}
-
-.ad-fade {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.ad-fade.loaded {
-  opacity: 1;
-}
-
-:root {
-  --ad-safe-bottom: 0px;
-}
-
-body {
-  padding-bottom: var(--ad-safe-bottom);
+.yandex-ad-slot iframe {
+  max-width: 100%;
 }
 
 ::-webkit-scrollbar {

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import "./globals.css";
-import AdSafeArea from "@/components/AdSafeArea";
+import ServiceWorkerCleanup from "@/components/ServiceWorkerCleanup";
+import YandexAdsScript from "@/components/YandexAdsScript";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -14,7 +15,8 @@ export default function RootLayout({
     <html>
       <body>
         <div className="min-h-dvh flex flex-col">{children}</div>
-        <AdSafeArea />
+        <ServiceWorkerCleanup />
+        <YandexAdsScript />
       </body>
     </html>
   );

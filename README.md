@@ -31,6 +31,16 @@ npm install
 npm run dev
 ```
 
+## Advertising
+
+The site uses only inline Yandex RTB banner slots. Create a Banner unit in Yandex Partner, copy its RTB `blockId`, and set it at build time:
+
+```bash
+NEXT_PUBLIC_YANDEX_RTB_INLINE_BLOCK_ID=R-A-19353529-1
+```
+
+Fullscreen, Top Ad, Floor Ad, push, and pop-up formats are intentionally not used because this converter should not interrupt file selection, conversion, or download.
+
 ## Static build
 
 ```bash

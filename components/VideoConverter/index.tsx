@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import ResultModal from "../ResultModal";
 import { Locale } from "@/dictionary";
-import { showPropellerVignette } from "../PropellerVignette";
 
 const MAX_VIDEO_SIZE_MB = 500;
 
@@ -489,8 +488,6 @@ export default function VideoConverter({ locale = "ru" }: { locale?: Locale }) {
   }
 
   async function onConvert() {
-    showPropellerVignette();
-
     if (!file) {
       setError(copy.noFile);
       return;

@@ -1,4 +1,4 @@
-export const DEFAULT_SITE_URL = "https://converter-murex.vercel.app";
+export const DEFAULT_SITE_URL = "https://formatkit.top";
 
 function normalizeSiteUrl(value: string | undefined) {
   const siteUrl = value?.trim().replace(/\/$/, "");

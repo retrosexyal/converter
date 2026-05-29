@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import UploadForm from "@/components/UploadForm";
 import FaqSchema from "@/components/FaqSchema";
+import YandexAdSlot from "@/components/YandexAdSlot";
 import { DICTIONARY, type Locale } from "@/dictionary";
 import { FAQ } from "@/lib/faq";
 import { notFound } from "next/navigation";
@@ -49,6 +50,8 @@ export default async function HomePage({
         </section>
 
         <UploadForm title={cta} locale={locale as Locale} />
+
+        <YandexAdSlot placement="home-after-converter" />
 
         <section className="prose max-w-none">
           <h2>{faqTitle}</h2>

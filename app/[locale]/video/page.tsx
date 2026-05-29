@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import FaqSchema from "@/components/FaqSchema";
 import VideoConverter from "@/components/VideoConverter";
+import YandexAdSlot from "@/components/YandexAdSlot";
 import { DICTIONARY, type Locale } from "@/dictionary";
 import { alternateLanguages, SITE_URL } from "@/lib/seo";
 
@@ -194,6 +195,8 @@ export default async function VideoPage({
         </section>
 
         <VideoConverter locale={locale as Locale} />
+
+        <YandexAdSlot placement="video-after-converter" />
 
         <article className="prose max-w-none">
           <h2>{page.articleTitle}</h2>
