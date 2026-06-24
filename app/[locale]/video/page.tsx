@@ -198,7 +198,7 @@ export default async function VideoPage({
 
         <YandexAdSlot placement="video-after-converter" />
 
-        <article className="prose max-w-none">
+        <article className="content-article max-w-none">
           <h2>{page.articleTitle}</h2>
           <ul>
             {page.points.map((point) => (

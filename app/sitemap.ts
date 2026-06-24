@@ -12,6 +12,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const locales = Object.keys(DICTIONARY) as Array<keyof typeof DICTIONARY>;
 
+  routes.push({
+    url: siteUrl,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 1,
+    alternates: {
+      languages: {
+        ...alternateLanguages(locales, (l) => `${siteUrl}/${l}`),
+        "x-default": siteUrl,
+      },
+    },
+  });
+
   for (const locale of locales) {
     routes.push({
       url: `${siteUrl}/${locale}`,

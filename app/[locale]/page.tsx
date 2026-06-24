@@ -53,7 +53,7 @@ export default async function HomePage({
 
         <YandexAdSlot placement="home-after-converter" />
 
-        <section className="prose max-w-none">
+        <section className="content-article max-w-none">
           <h2>{faqTitle}</h2>
 
           <ul>

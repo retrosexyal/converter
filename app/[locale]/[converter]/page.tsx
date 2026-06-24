@@ -3,6 +3,7 @@ import UploadForm from "@/components/UploadForm";
 import YandexAdSlot from "@/components/YandexAdSlot";
 import { DICTIONARY, Locale } from "@/dictionary";
 import { FAQ } from "@/lib/faq";
+import { getConverterPageContent } from "@/lib/converterPageContent";
 import { alternateLanguages, SITE_URL } from "@/lib/seo";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -69,6 +70,7 @@ export default async function Page({
   const page = dict.converters[converter as keyof typeof dict.converters];
 
   const faqs = FAQ.base[locale as Locale];
+  const content = getConverterPageContent(converter, locale as Locale);
 
   return (
     <>
@@ -84,10 +86,55 @@ export default async function Page({
 
         <YandexAdSlot placement={`converter-${converter}-after-form`} />
 
-        <article className="prose max-w-none">
+        <article className="content-article max-w-none">
           <h1>{page.h1}</h1>
           <p>{page.description}</p>
 
+          <h2>{content.introTitle}</h2>
+          <p>{content.introText}</p>
+
+          <h2>{content.stepsTitle}</h2>
+          <ol>
+            {content.steps.map((step) => (
+              <li key={step}>{step}</li>
+            ))}
+          </ol>
+
+          <h2>{content.formatTitle}</h2>
+          <div className="overflow-x-auto">
+            <table>
+              <tbody>
+                {content.rows.map((row) => (
+                  <tr key={row.label}>
+                    <th>{row.label}</th>
+                    <td>{row.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <h2>{content.bestForTitle}</h2>
+          <ul>
+            {content.bestFor.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+
+          <h2>{content.qualityTitle}</h2>
+          <p>{content.qualityText}</p>
+
+          <h2>{content.privacyTitle}</h2>
+          <p>{content.privacyText}</p>
+
+          <h2>{content.tipsTitle}</h2>
+          <ul>
+            {content.tips.map((tip) => (
+              <li key={tip}>{tip}</li>
+            ))}
+          </ul>
+
+          <h2>{content.faqTitle}</h2>
           <ul>
             {faqs.map((f) => (
               <li key={f.question}>

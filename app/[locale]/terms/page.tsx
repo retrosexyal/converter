@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DICTIONARY, Locale } from "@/dictionary";
+import { TERMS_EXTRA } from "@/lib/legalContent";
 import { alternateLanguages } from "@/lib/seo";
 import { notFound } from "next/navigation";
 
@@ -52,9 +53,10 @@ export default async function Page({
       changesText,
     },
   } = dict;
+  const extraSections = TERMS_EXTRA[locale as Locale];
 
   return (
-    <article className="prose max-w-3xl mx-auto">
+    <article className="content-article max-w-3xl mx-auto">
       <h1>{h1}</h1>
 
       <p>{intro}</p>
@@ -67,6 +69,22 @@ export default async function Page({
 
       <h2>{changesTitle}</h2>
       <p>{changesText}</p>
+
+      {extraSections.map((section) => (
+        <section key={section.title}>
+          <h2>{section.title}</h2>
+          {section.body.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+          {section.list && (
+            <ul>
+              {section.list.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          )}
+        </section>
+      ))}
     </article>
   );
 }

@@ -15,12 +15,16 @@ function DesktopDropdown({
   items,
   locale,
   noLocale,
+  align = "left",
 }: {
   label: string;
   items: NavItem[];
   locale: Locale;
   noLocale?: boolean;
+  align?: "left" | "right";
 }) {
+  const dropdownAlignClass = align === "right" ? "right-0" : "left-0";
+
   return (
     <div className="relative">
       {/* group – зона ховера */}
@@ -38,21 +42,21 @@ function DesktopDropdown({
         </button>
 
         <div
-          className="
-            absolute left-0 top-full mt-2 w-56
+          className={`
+            absolute ${dropdownAlignClass} top-full mt-2 w-max min-w-full max-w-[calc(100vw-2rem)]
             rounded border border-neutral-200 dark:border-neutral-800
             bg-white dark:bg-neutral-900 shadow-lg z-50
             opacity-0 invisible
             group-hover:opacity-100 group-hover:visible
             transition-opacity
-          "
+          `}
         >
           <ul className="py-1">
             {items.map((item) => (
               <li key={item.href}>
                 <Link
                   href={noLocale ? item.href : withLocale(item.href, locale)}
-                  className="block px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                  className="block whitespace-nowrap px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800"
                 >
                   {item.label}
                 </Link>
@@ -78,6 +82,23 @@ const VIDEO_LABELS: Record<Locale, string> = {
   es: "Video",
   de: "Video",
 };
+
+const FAVICON_TOOL_LABELS: Record<Locale, string> = {
+  ru: "Изображение → Favicon (ICO)",
+  en: "Image → Favicon (ICO)",
+  es: "Imagen → Favicon (ICO)",
+  de: "Bild → Favicon (ICO)",
+};
+
+function localizeNavItems(items: NavItem[], locale: Locale, homeLabel: string) {
+  return items.map((item) => {
+    if (item.href === "/") return { ...item, label: homeLabel };
+    if (item.href === "/image-to-ico") {
+      return { ...item, label: FAVICON_TOOL_LABELS[locale] };
+    }
+    return item;
+  });
+}
 
 function LanguageSelectMobile({
   locale,
@@ -181,17 +202,30 @@ export default function Header({ locale }: { locale: Locale }) {
     header: { close, convert, favicon, home, menu, languageTitle },
   } = DICTIONARY[locale];
 
+  const navGroups = useMemo(
+    () => ({
+      convert: localizeNavItems(NAV.convert, locale, home),
+      webp: localizeNavItems(NAV.webp, locale, home),
+      png: localizeNavItems(NAV.png, locale, home),
+      jpeg: localizeNavItems(NAV.jpeg, locale, home),
+      avif: localizeNavItems(NAV.avif, locale, home),
+      heic: localizeNavItems(NAV.heic, locale, home),
+      favicon: localizeNavItems(NAV.favicon, locale, home),
+    }),
+    [home, locale],
+  );
+
   const mobileGroups = useMemo(
     () => [
-      { title: convert, items: NAV.convert },
-      { title: "WebP", items: NAV.webp },
-      { title: "PNG", items: NAV.png },
-      { title: "JPEG", items: NAV.jpeg },
-      { title: "AVIF", items: NAV.avif },
-      { title: "HEIC", items: NAV.heic },
-      { title: favicon, items: NAV.favicon },
+      { title: convert, items: navGroups.convert },
+      { title: "WebP", items: navGroups.webp },
+      { title: "PNG", items: navGroups.png },
+      { title: "JPEG", items: navGroups.jpeg },
+      { title: "AVIF", items: navGroups.avif },
+      { title: "HEIC", items: navGroups.heic },
+      { title: favicon, items: navGroups.favicon },
     ],
-    [convert, favicon],
+    [convert, favicon, navGroups],
   );
 
   return (
@@ -205,17 +239,17 @@ export default function Header({ locale }: { locale: Locale }) {
         <nav className="hidden md:flex items-center gap-6">
           <DesktopDropdown
             label={convert}
-            items={NAV.convert}
+            items={navGroups.convert}
             locale={locale}
           />
-          <DesktopDropdown label="WebP" items={NAV.webp} locale={locale} />
-          <DesktopDropdown label="PNG" items={NAV.png} locale={locale} />
-          <DesktopDropdown label="JPEG" items={NAV.jpeg} locale={locale} />
-          <DesktopDropdown label="AVIF" items={NAV.avif} locale={locale} />
-          <DesktopDropdown label="HEIC" items={NAV.heic} locale={locale} />
+          <DesktopDropdown label="WebP" items={navGroups.webp} locale={locale} />
+          <DesktopDropdown label="PNG" items={navGroups.png} locale={locale} />
+          <DesktopDropdown label="JPEG" items={navGroups.jpeg} locale={locale} />
+          <DesktopDropdown label="AVIF" items={navGroups.avif} locale={locale} />
+          <DesktopDropdown label="HEIC" items={navGroups.heic} locale={locale} />
           <DesktopDropdown
             label={favicon}
-            items={NAV.favicon}
+            items={navGroups.favicon}
             locale={locale}
           />
           <Link
@@ -229,6 +263,7 @@ export default function Header({ locale }: { locale: Locale }) {
             items={NAV.language}
             locale={locale}
             noLocale
+            align="right"
           />
         </nav>
 
