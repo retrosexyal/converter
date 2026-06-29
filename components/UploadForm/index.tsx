@@ -13,6 +13,24 @@ import {
   MAX_FILES,
 } from "@/constants";
 
+const QUALITY_FORMATS = new Set(["jpeg", "webp", "avif"]);
+const FLATTENED_FORMATS = new Set(["jpeg", "gif", "tiff"]);
+
+function formatBytes(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`;
+
+  const units = ["KB", "MB", "GB"];
+  let value = bytes / 1024;
+  let unit = units[0];
+
+  for (let i = 1; i < units.length && value >= 1024; i += 1) {
+    value /= 1024;
+    unit = units[i];
+  }
+
+  return `${value.toFixed(value >= 10 ? 0 : 1)} ${unit}`;
+}
+
 function detectInputLabel(file: File | null) {
   if (!file) return null;
   const t = (file.type || "").toLowerCase();
@@ -48,6 +66,7 @@ export default function UploadForm({
     uploadForm: {
       blockTitle,
       subtitle,
+      privacyBadge,
       dragTitle,
       dragHint,
       removeFile,
@@ -64,6 +83,8 @@ export default function UploadForm({
   const [isDragging, setIsDragging] = useState(false);
 
   const [format, setFormat] = useState<string>(defaultFormat);
+  const [quality, setQuality] = useState(85);
+  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
@@ -77,6 +98,9 @@ export default function UploadForm({
   useEffect(() => setFormat(defaultFormat), [defaultFormat]);
 
   const firstFile = files[0] ?? null;
+  const totalSize = files.reduce((sum, file) => sum + file.size, 0);
+  const showQuality = QUALITY_FORMATS.has(format);
+  const showBackground = FLATTENED_FORMATS.has(format);
   const formats: Record<string, string> = {};
   files.forEach((newFile) => {
     const label = detectInputLabel(newFile);
@@ -129,7 +153,10 @@ export default function UploadForm({
     setLoading(true);
 
     try {
-      const result = await convertFilesInBrowser(files, format);
+      const result = await convertFilesInBrowser(files, format, {
+        quality: quality / 100,
+        backgroundColor,
+      });
 
       setDownloadName(result.name);
       setResultBlob(result.blob);
@@ -162,6 +189,11 @@ export default function UploadForm({
     <div className="border rounded p-5 flex flex-col gap-4">
       <h2 className="text-lg font-semibold">{title ?? blockTitle}</h2>
       <p className="text-sm text-neutral-600">{subtitle}</p>
+
+      <div className="rounded border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-950">
+        <div className="font-medium">{privacyBadge.title}</div>
+        <div className="text-xs">{privacyBadge.text}</div>
+      </div>
 
       <div
         className={`rounded border-2 border-dashed p-6 cursor-pointer select-none ${
@@ -203,6 +235,15 @@ export default function UploadForm({
                     {label}
                   </span>
                 ))}
+              </div>
+            )}
+            <div className="mt-1 text-xs text-neutral-600">
+              {info.size}: {formatBytes(totalSize)}
+              {files.length > 1 ? " total" : ""}
+            </div>
+            {files.length > 1 && (
+              <div className="mt-1 text-xs text-neutral-600">
+                Multiple files will download as a ZIP archive.
               </div>
             )}
             <button
@@ -252,6 +293,42 @@ export default function UploadForm({
         </div>
       )}
 
+      {(showQuality || showBackground) && (
+        <div className="grid gap-4 rounded border border-neutral-200 p-3 md:grid-cols-2">
+          {showQuality && (
+            <label className="flex flex-col gap-2 text-sm">
+              <span className="font-medium">Quality: {quality}%</span>
+              <input
+                type="range"
+                min="10"
+                max="100"
+                step="5"
+                value={quality}
+                onChange={(e) => setQuality(Number(e.target.value))}
+              />
+            </label>
+          )}
+
+          {showBackground && (
+            <label className="flex flex-col gap-2 text-sm">
+              <span className="font-medium">
+                Background for transparent pixels
+              </span>
+              <input
+                type="color"
+                value={backgroundColor}
+                onChange={(e) => setBackgroundColor(e.target.value)}
+                className="h-10 w-16 cursor-pointer rounded border bg-white p-1"
+              />
+            </label>
+          )}
+        </div>
+      )}
+
+      <div className="text-xs text-neutral-500">
+        Limits: up to {MAX_FILES} files, {MAX_FILE_SIZE_MB} MB per file.
+      </div>
+
       {loading && (
         <div className="w-full h-2 bg-neutral-200 rounded overflow-hidden">
           <div className="h-full w-1/3 bg-black animate-pulse" />
@@ -277,6 +354,8 @@ export default function UploadForm({
         onClose={() => setShowModal(false)}
         onDownload={download}
         locale={locale}
+        resultName={downloadName}
+        resultSize={resultBlob?.size}
       />
     </div>
   );

@@ -4,7 +4,7 @@ import FaqSchema from "@/components/FaqSchema";
 import VideoConverter from "@/components/VideoConverter";
 import YandexAdSlot from "@/components/YandexAdSlot";
 import { DICTIONARY, type Locale } from "@/dictionary";
-import { alternateLanguages, SITE_URL } from "@/lib/seo";
+import { absoluteUrl, alternateLanguages, SITE_URL } from "@/lib/seo";
 
 const locales = Object.keys(DICTIONARY) as Locale[];
 
@@ -160,13 +160,13 @@ export async function generateMetadata({
     title: page.metaTitle,
     description: page.metaDescription,
     alternates: {
-      canonical: `/${locale}/video`,
-      languages: alternateLanguages(locales, (l) => `/${l}/video`),
+      canonical: absoluteUrl(`/${locale}/video`),
+      languages: alternateLanguages(locales, (l) => absoluteUrl(`/${l}/video`)),
     },
     openGraph: {
       title: page.metaTitle,
       description: page.metaDescription,
-      url: `/${locale}/video`,
+      url: absoluteUrl(`/${locale}/video`),
     },
   };
 }

@@ -15,6 +15,7 @@ type ConverterPageContent = {
   privacyText: string;
   tipsTitle: string;
   tips: string[];
+  extraSections: Array<{ title: string; body?: string[]; bullets?: string[] }>;
   faqTitle: string;
 };
 
@@ -70,6 +71,171 @@ const FORMAT_PROFILES: Record<string, FormatProfile> = {
     compression: "mixed",
     compatibility: "good",
   },
+};
+
+const EN_CONVERTER_EXTRA: Record<
+  string,
+  Array<{ title: string; body?: string[]; bullets?: string[] }>
+> = {
+  "webp-to-jpeg": [
+    {
+      title: "When to use WebP to JPG",
+      body: [
+        "Use JPG when a WebP image needs to work in older apps, upload forms, email clients or devices that do not accept WebP. JPEG is also a practical choice for photos where broad compatibility matters more than transparency.",
+      ],
+    },
+    {
+      title: "Transparency and background color",
+      body: [
+        "JPEG does not support transparency. If your WebP file has transparent pixels, the converter flattens them onto the selected background color before export. White is the safest default for documents, marketplaces and most sharing workflows.",
+      ],
+    },
+    {
+      title: "Quality and compression tips",
+      bullets: [
+        "Use a higher quality value for portraits, product images and gradients.",
+        "Use a lower value when the smallest possible file is more important than fine detail.",
+        "Choose PNG instead of JPG when you need a transparent result or sharp interface graphics.",
+      ],
+    },
+    {
+      title: "Common problems and fixes",
+      bullets: [
+        "If the output has a white background, the source image probably used transparency that JPEG cannot preserve.",
+        "If an app rejects WebP, JPG is usually the most compatible fallback.",
+        "If sharp edges look fuzzy, try WebP to PNG instead.",
+      ],
+    },
+  ],
+  "webp-to-png": [
+    {
+      title: "When to use WebP to PNG",
+      body: [
+        "Use PNG when you need a lossless file, transparent background, or compatibility with design tools and editors that prefer PNG over WebP.",
+      ],
+    },
+    {
+      title: "Transparency handling",
+      body: [
+        "PNG supports alpha transparency, so transparent WebP images can keep transparent areas in the output when the browser decodes the source correctly.",
+      ],
+    },
+    {
+      title: "Quality and file size",
+      bullets: [
+        "PNG is lossless and often larger than WebP.",
+        "Use PNG for logos, screenshots and UI graphics.",
+        "Use JPG or WebP for photos when smaller file size matters more.",
+      ],
+    },
+    {
+      title: "Common problems and fixes",
+      bullets: [
+        "If the file becomes larger, that is normal for lossless PNG output.",
+        "If transparency is missing, check whether the original WebP actually contains transparent pixels.",
+      ],
+    },
+  ],
+  "png-to-webp": [
+    {
+      title: "When to use PNG to WebP",
+      body: [
+        "Use WebP for website images, blog graphics, product photos and UI assets that need smaller file sizes while keeping good visual quality.",
+      ],
+    },
+    {
+      title: "Transparency support",
+      body: [
+        "WebP supports transparency, so PNG logos and interface graphics can keep transparent backgrounds when exported by a compatible browser.",
+      ],
+    },
+    {
+      title: "Why WebP can reduce file size",
+      body: [
+        "PNG uses lossless compression, which is excellent for sharp graphics but can be heavy for photos or complex screenshots. WebP can use modern compression to reduce file size while keeping the image visually close to the original.",
+      ],
+    },
+    {
+      title: "Quality recommendations",
+      bullets: [
+        "Try 80-90 quality for product images and most website graphics.",
+        "Use PNG when you need pixel-perfect lossless output.",
+        "Compare the result visually before replacing important production assets.",
+      ],
+    },
+  ],
+  "heic-to-jpeg": [
+    {
+      title: "When to convert iPhone HEIC photos to JPG",
+      body: [
+        "Convert HEIC to JPG when a website, form, desktop app or recipient cannot open iPhone photos. JPEG is widely accepted by email clients, social platforms, editors and older devices.",
+      ],
+    },
+    {
+      title: "Compatibility and quality",
+      body: [
+        "JPEG uses lossy compression, so the result may be smaller and easier to share. Use a higher quality setting when the photo contains faces, text, or details that need to remain clear.",
+      ],
+    },
+    {
+      title: "HEIC support limitations",
+      bullets: [
+        "HEIC decoding depends on the browser and operating system.",
+        "If your browser cannot read the file, export the photo as JPEG from the iPhone Photos app and try again.",
+        "Keep the original HEIC file until you have checked the converted JPG.",
+      ],
+    },
+  ],
+  "image-to-ico": [
+    {
+      title: "When to use .ico",
+      body: [
+        "Use ICO when you need a classic favicon file for browser tabs, bookmarks, older browsers or simple website setups that look for favicon.ico.",
+      ],
+    },
+    {
+      title: "Favicon sizes",
+      body: [
+        "Classic favicon ICO files commonly include 16x16, 32x32 and 48x48 icon sizes. FormatKit creates a compact icon output from your source image for basic browser favicon use.",
+      ],
+    },
+    {
+      title: "ICO vs PNG icons",
+      body: [
+        "PNG favicons are common on modern websites and can be referenced directly in HTML. ICO is still useful as a compatibility format because one .ico file can be used by browsers and legacy systems that expect it.",
+      ],
+    },
+    {
+      title: "Basic website favicon usage",
+      bullets: [
+        "Use a simple, square source image with enough contrast.",
+        "Place favicon.ico in the site root or reference it with a rel=\"icon\" link.",
+        "Check the icon at small sizes before publishing.",
+      ],
+    },
+  ],
+  "webp-to-pdf": [
+    {
+      title: "When to convert WebP to PDF",
+      body: [
+        "Use PDF when WebP images need to be shared as a document, printed, archived or attached to a workflow that accepts PDFs more reliably than separate image files.",
+      ],
+    },
+    {
+      title: "Multiple images and batch download",
+      body: [
+        "When several files are selected, FormatKit processes them as a batch and packages multiple outputs for download. This is useful for screenshots, receipts and visual notes.",
+      ],
+    },
+    {
+      title: "Quality and layout tips",
+      bullets: [
+        "Keep originals until you confirm the PDF opens correctly.",
+        "Use JPG or PNG output instead when you need editable image files.",
+        "For print workflows, start with the highest-resolution WebP source available.",
+      ],
+    },
+  ],
 };
 
 const COPY = {
@@ -468,6 +634,8 @@ export function getConverterPageContent(
     privacyText: copy.privacyText,
     tipsTitle: copy.tipsTitle,
     tips: [...copy.tips(sourceLabel, targetLabel)],
+    extraSections:
+      locale === "en" ? [...(EN_CONVERTER_EXTRA[converter] ?? [])] : [],
     faqTitle: copy.faqTitle,
   };
 }

@@ -4,7 +4,10 @@ import FaqSchema from "@/components/FaqSchema";
 import YandexAdSlot from "@/components/YandexAdSlot";
 import { DICTIONARY, type Locale } from "@/dictionary";
 import { FAQ } from "@/lib/faq";
+import { absoluteUrl, alternateLanguages } from "@/lib/seo";
 import { notFound } from "next/navigation";
+
+const locales = Object.keys(DICTIONARY);
 
 export async function generateMetadata({
   params,
@@ -19,7 +22,14 @@ export async function generateMetadata({
   const {
     home: { metaTitle, metaDescription },
   } = dict;
-  return { title: metaTitle, description: metaDescription };
+  return {
+    title: metaTitle,
+    description: metaDescription,
+    alternates: {
+      canonical: absoluteUrl(`/${locale}`),
+      languages: alternateLanguages(locales, (l) => absoluteUrl(`/${l}`)),
+    },
+  };
 }
 
 export default async function HomePage({

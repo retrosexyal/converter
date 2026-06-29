@@ -3,7 +3,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import UploadForm from "@/components/UploadForm";
 import YandexAdSlot from "@/components/YandexAdSlot";
-import { SITE_URL } from "@/lib/seo";
+import { absoluteUrl, SITE_URL } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
@@ -12,20 +12,20 @@ export const metadata: Metadata = {
   description:
     "Convert images online in your browser. FormatKit supports JPG, PNG, WebP, AVIF, HEIC, TIFF, GIF, ICO and PDF with no registration.",
   alternates: {
-    canonical: "/",
+    canonical: absoluteUrl("/"),
     languages: {
-      en: "/en",
-      ru: "/ru",
-      es: "/es",
-      de: "/de",
-      "x-default": "/",
+      en: absoluteUrl("/en"),
+      ru: absoluteUrl("/ru"),
+      es: absoluteUrl("/es"),
+      de: absoluteUrl("/de"),
+      "x-default": absoluteUrl("/"),
     },
   },
   openGraph: {
     title: "FormatKit - Online Image Converter",
     description:
       "Fast browser-based image conversion for JPG, PNG, WebP, AVIF, HEIC, TIFF, GIF, ICO and PDF.",
-    url: "/",
+    url: absoluteUrl("/"),
     type: "website",
   },
 };
@@ -187,6 +187,9 @@ export default function RootPage() {
           <div className="flex gap-4 text-xs">
             <Link href="/en/privacy">Privacy Policy</Link>
             <Link href="/en/terms">Terms of Service</Link>
+            <Link href="/en/about">About</Link>
+            <Link href="/en/contact">Contact</Link>
+            <Link href="/en/security">Security</Link>
           </div>
         </div>
       </footer>
@@ -200,7 +203,7 @@ export default function RootPage() {
             name: "FormatKit",
             url: SITE_URL,
             applicationCategory: "UtilityApplication",
-            operatingSystem: "All",
+            operatingSystem: "Web browser",
             offers: {
               "@type": "Offer",
               price: "0",

@@ -51,12 +51,12 @@ export const FAQ = {
       {
         question: "Is HEIC (iPhone) format supported?",
         answer:
-          "Yes, HEIC images are supported. Availability may depend on the technical capabilities of the server.",
+          "HEIC support depends on the current browser and operating system. If a browser cannot decode the file, try exporting the photo as JPEG first.",
       },
       {
         question: "Is it safe to use the service?",
         answer:
-          "Yes. Uploaded images are used only for conversion and are not stored on the server.",
+          "FormatKit is designed for browser-based conversion where supported. Files are used for the requested operation and no registration is required.",
       },
       {
         question: "Do I need to register?",
@@ -173,7 +173,7 @@ export const FAQ = {
       {
         question: "Is it safe to upload images?",
         answer:
-          "Yes. Files are used only for conversion and are not stored on the server.",
+          "FormatKit is designed for browser-based conversion where supported. Files are used for the requested operation and no registration is required.",
       },
       {
         question: "Do I need to sign up?",

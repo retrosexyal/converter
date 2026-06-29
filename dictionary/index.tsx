@@ -283,6 +283,10 @@ const ru = {
     blockTitle: "Конвертация изображений",
     subtitle:
       "Входные форматы: PNG, JPEG, WebP, AVIF, HEIC, TIFF, GIF. Перетащи файл или выбери вручную.",
+    privacyBadge: {
+      title: "Файлы остаются в вашем браузере",
+      text: "Ваши изображения по возможности обрабатываются локально. Регистрация не требуется.",
+    },
 
     dragTitle: "Drag & Drop сюда",
     dragHint: "или кликни, чтобы выбрать файл",
@@ -364,7 +368,7 @@ const en = {
 
     footerCopyright: "© {{year}} Image Converter",
     footerFormats:
-      "Supported formats: JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF, GIF. Files are used only for conversion and are not stored.",
+      "Supported formats: JPG, PNG, WebP, PDF, AVIF, HEIC, TIFF, GIF. Designed for browser-based conversion where supported.",
 
     privacy: "Privacy Policy",
     terms: "Terms of Service",
@@ -520,7 +524,7 @@ const en = {
       title: "HEIC → WebP",
       h1: "HEIC to WebP Online Converter",
       description:
-        "WebP is a modern image format offering efficient compression and transparency support. Converting HEIC to WebP is ideal for web usage. Availability may depend on HEIC support on the server.",
+        "WebP is a modern image format offering efficient compression and transparency support. Converting HEIC to WebP is ideal for web usage. Availability depends on browser and operating system support.",
     },
     "image-to-ico": {
       metaTitle: "Image to Favicon (ICO) Online",
@@ -592,11 +596,12 @@ const en = {
 
     h1: "Privacy Policy",
 
-    intro: "We respect your privacy and do not store uploaded images.",
+    intro:
+      "FormatKit is designed for browser-based conversion where supported and does not require registration.",
 
     filesTitle: "Files",
     filesText:
-      "Uploaded images are used exclusively for conversion purposes and are automatically deleted.",
+      "Selected images are used for the requested conversion. Many operations run in the browser; support for individual formats depends on the browser and device.",
 
     cookiesTitle: "Cookies and Advertising",
     cookiesText:
@@ -629,6 +634,10 @@ const en = {
     blockTitle: "Image Conversion",
     subtitle:
       "Input formats: PNG, JPEG, WebP, AVIF, HEIC, TIFF, GIF. Drag and drop a file or select manually.",
+    privacyBadge: {
+      title: "Files stay in your browser",
+      text: "Your images are processed locally when possible. No registration required.",
+    },
 
     dragTitle: "Drag & Drop here",
     dragHint: "or click to choose a file",
@@ -990,6 +999,11 @@ const de = {
     subtitle:
       "Eingabeformate: PNG, JPEG, WebP, AVIF, HEIC, TIFF, GIF. Datei per Drag & Drop oder manuell auswählen.",
 
+    privacyBadge: {
+      title: "Dateien bleiben in deinem Browser",
+      text: "Deine Bilder werden nach Moeglichkeit lokal verarbeitet. Keine Registrierung erforderlich.",
+    },
+
     dragTitle: "Hierher ziehen & ablegen",
     dragHint: "oder klicken, um eine Datei auszuwählen",
 
@@ -1342,6 +1356,11 @@ const es = {
 
     dragTitle: "Arrastra y suelta aquí",
     dragHint: "o haz clic para elegir un archivo",
+
+    privacyBadge: {
+      title: "Los archivos permanecen en tu navegador",
+      text: "Tus imagenes se procesan localmente cuando es posible. No se requiere registro.",
+    },
 
     removeFile: "Eliminar archivo",
 

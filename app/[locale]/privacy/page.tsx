@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { DICTIONARY, Locale } from "@/dictionary";
 import { CONTACT_EMAIL, PRIVACY_EXTRA } from "@/lib/legalContent";
-import { alternateLanguages } from "@/lib/seo";
+import { absoluteUrl, alternateLanguages } from "@/lib/seo";
 import { notFound } from "next/navigation";
 
 const locales = Object.keys(DICTIONARY);
@@ -24,8 +24,10 @@ export async function generateMetadata({
     title: metaTitle,
     description: metaDescription,
     alternates: {
-      canonical: `/${locale}/privacy`,
-      languages: alternateLanguages(locales, (l) => `/${l}/privacy`),
+      canonical: absoluteUrl(`/${locale}/privacy`),
+      languages: alternateLanguages(locales, (l) =>
+        absoluteUrl(`/${l}/privacy`),
+      ),
     },
   };
 }

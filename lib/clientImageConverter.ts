@@ -21,6 +21,11 @@ type ConversionResult = {
   name: string;
 };
 
+export type ConversionOptions = {
+  quality?: number;
+  backgroundColor?: string;
+};
+
 const MIME_BY_FORMAT: Record<OutFormat, string> = {
   webp: "image/webp",
   jpeg: "image/jpeg",
@@ -415,20 +420,44 @@ async function canvasToIco(source: HTMLCanvasElement) {
   return blobFromBytes(ico, "image/x-icon");
 }
 
-async function convertOne(file: File, format: OutFormat): Promise<ConversionResult> {
+function normalizeQuality(value: number | undefined, fallback: number) {
+  if (typeof value !== "number" || Number.isNaN(value)) return fallback;
+  return Math.min(1, Math.max(0.1, value));
+}
+
+async function convertOne(
+  file: File,
+  format: OutFormat,
+  options: ConversionOptions = {},
+): Promise<ConversionResult> {
   const flatten = format === "jpeg" || format === "gif" || format === "tiff";
   const decoded = await decodeImage(file);
-  const canvas = canvasFromImage(decoded, flatten ? "#fff" : undefined);
+  const canvas = canvasFromImage(
+    decoded,
+    flatten ? options.backgroundColor || "#ffffff" : undefined,
+  );
   let blob: Blob;
 
   if (format === "png") {
     blob = await canvasToBlob(canvas, "image/png");
   } else if (format === "jpeg") {
-    blob = await canvasToBlob(canvas, "image/jpeg", 0.92);
+    blob = await canvasToBlob(
+      canvas,
+      "image/jpeg",
+      normalizeQuality(options.quality, 0.92),
+    );
   } else if (format === "webp") {
-    blob = await canvasToBlob(canvas, "image/webp", 0.85);
+    blob = await canvasToBlob(
+      canvas,
+      "image/webp",
+      normalizeQuality(options.quality, 0.85),
+    );
   } else if (format === "avif") {
-    blob = await canvasToBlob(canvas, "image/avif", 0.8);
+    blob = await canvasToBlob(
+      canvas,
+      "image/avif",
+      normalizeQuality(options.quality, 0.8),
+    );
   } else if (format === "pdf") {
     blob = await canvasToPdf(canvas);
   } else if (format === "ico") {
@@ -450,6 +479,7 @@ async function convertOne(file: File, format: OutFormat): Promise<ConversionResu
 export async function convertFilesInBrowser(
   files: File[],
   rawFormat: string,
+  options: ConversionOptions = {},
 ): Promise<ConversionResult> {
   const format = rawFormat.toLowerCase();
 
@@ -465,12 +495,12 @@ export async function convertFilesInBrowser(
     }
   }
 
-  if (files.length === 1) return convertOne(files[0], format);
+  if (files.length === 1) return convertOne(files[0], format, options);
 
   const zip = new JSZip();
 
   for (const file of files) {
-    const converted = await convertOne(file, format);
+    const converted = await convertOne(file, format, options);
     zip.file(converted.name, converted.blob);
   }
 

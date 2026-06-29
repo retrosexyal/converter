@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import { DICTIONARY, type Locale } from "@/dictionary";
 import { notFound } from "next/navigation";
-import { alternateLanguages, SITE_URL } from "@/lib/seo";
+import { absoluteUrl, alternateLanguages, SITE_URL } from "@/lib/seo";
 
 const locales = Object.keys(DICTIONARY);
 
@@ -36,11 +36,11 @@ export async function generateMetadata({
       title: dict.layout.ogTitle,
       description: dict.layout.ogDescription,
       type: "website",
-      url: `/${locale}`,
+      url: absoluteUrl(`/${locale}`),
     },
     alternates: {
-      canonical: `/${locale}`,
-      languages: alternateLanguages(locales, (l) => `/${l}`),
+      canonical: absoluteUrl(`/${locale}`),
+      languages: alternateLanguages(locales, (l) => absoluteUrl(`/${l}`)),
     },
     twitter: {
       card: "summary_large_image",
@@ -96,6 +96,13 @@ export default async function RootLayout({
           <div className="flex gap-4 text-xs">
             <Link href={`/${locale}/privacy`}>{dict.layout.privacy}</Link>
             <Link href={`/${locale}/terms`}>{dict.layout.terms}</Link>
+            {locale === "en" && (
+              <>
+                <Link href="/en/about">About</Link>
+                <Link href="/en/contact">Contact</Link>
+                <Link href="/en/security">Security</Link>
+              </>
+            )}
           </div>
         </div>
       </footer>
@@ -108,8 +115,13 @@ export default async function RootLayout({
             name: dict.layout.applicationName,
             url: `${SITE_URL}/${locale}`,
             applicationCategory: "UtilityApplication",
-            operatingSystem: "All",
+            operatingSystem: "Web browser",
             inLanguage: locale,
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
           }),
         }}
       />

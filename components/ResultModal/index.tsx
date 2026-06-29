@@ -9,13 +9,32 @@ type Props = {
   onClose: () => void;
   onDownload: () => void;
   locale: Locale;
+  resultName?: string;
+  resultSize?: number;
 };
+
+function formatBytes(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`;
+
+  const units = ["KB", "MB", "GB"];
+  let value = bytes / 1024;
+  let unit = units[0];
+
+  for (let i = 1; i < units.length && value >= 1024; i += 1) {
+    value /= 1024;
+    unit = units[i];
+  }
+
+  return `${value.toFixed(value >= 10 ? 0 : 1)} ${unit}`;
+}
 
 export default function ResultModal({
   open,
   onClose,
   onDownload,
   locale,
+  resultName,
+  resultSize,
 }: Props) {
   const {
     resultModal: { title, close, download /* , adTitle, adHint */ },
@@ -43,6 +62,17 @@ export default function ResultModal({
         </div>
 
         <div className="p-4 flex flex-col gap-4">
+          {(resultName || typeof resultSize === "number") && (
+            <div className="rounded border border-neutral-200 bg-neutral-50 p-3 text-sm text-neutral-800">
+              {resultName && <div className="font-medium">{resultName}</div>}
+              {typeof resultSize === "number" && (
+                <div className="text-xs text-neutral-600">
+                  Output size: {formatBytes(resultSize)}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* <div className="border rounded p-3 bg-neutral-50">
             <div className="text-sm font-medium">Баннер после конвертации</div>
             <div className="text-xs text-neutral-600 mt-1">

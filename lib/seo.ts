@@ -1,4 +1,4 @@
-export const DEFAULT_SITE_URL = "https://formatkit.top";
+export const DEFAULT_SITE_URL = "https://www.formatkit.top";
 
 function normalizeSiteUrl(value: string | undefined) {
   const siteUrl = value?.trim().replace(/\/$/, "");
@@ -15,6 +15,11 @@ function normalizeSiteUrl(value: string | undefined) {
 }
 
 export const SITE_URL = normalizeSiteUrl(process.env.SITE_URL);
+
+export function absoluteUrl(path = "") {
+  if (!path || path === "/") return SITE_URL;
+  return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+}
 
 export function alternateLanguages(
   locales: string[],
